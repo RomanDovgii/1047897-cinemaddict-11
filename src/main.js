@@ -8,20 +8,20 @@ const header = document.querySelector(`.header`);
 const main = document.querySelector(`.main`);
 const footer = document.querySelector(`.footer`);
 
-let films = ``;
-let filmsList = ``;
-let topRated = ``;
-let mostCommented = ``;
-let filmsContainer = ``;
-let topRatedContainer = ``;
-let mostCommentedContainer = ``;
-
 const Positions = {
   BEFORE_BEGIN: `beforebegin`,
   AFTER_BEGIN: `afterbegin`,
   BEFORE_END: `beforeend`,
   AFTER_END: `afterend`
 };
+
+let films;
+let filmsList;
+let topRated;
+let mostCommented;
+let filmsContainer;
+let topRatedContainer;
+let mostCommentedContainer;
 
 const createUserRank = () => {
   return (
