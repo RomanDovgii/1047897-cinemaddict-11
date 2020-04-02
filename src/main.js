@@ -84,7 +84,7 @@ const createMostCommentedContainer = () => {
   );
 };
 
-const createMovieCard = () => {
+const createMovieCardTemplate = () => {
   return (
     `<article class="film-card">
         <h3 class="film-card__title">The Dance of Life</h3>
@@ -300,7 +300,7 @@ const render = (container, template, position) => {
 
 const cardsRender = (container, counter) => {
   for (let i = 0; i < counter; i++) {
-    render(container, createMovieCard(), Positions.BEFORE_END);
+    render(container, createMovieCardTemplate(), Positions.BEFORE_END);
   }
 };
 
@@ -313,8 +313,6 @@ render(header, createUserRank(), Positions.BEFORE_END);
 render(main, createMenu(), Positions.BEFORE_END);
 render(main, createSortMenu(), Positions.BEFORE_END);
 render(main, createMoviesContainer(), Positions.BEFORE_END);
-
-
 render(footer, createStatistics(), Positions.BEFORE_END);
 
 const films = document.querySelector(`.films`);
@@ -325,13 +323,12 @@ render(films, createMostCommentedContainer(), Positions.BEFORE_END);
 
 const filmsList = films.querySelector(`.films-list`);
 const topRated = films.querySelector(`.films-list--rated`);
-const topRatedContainer = topRated.querySelector(`.films-list__container`);
 const mostCommented = films.querySelector(`.films-list--commented`);
+const filmsContainer = filmsList.querySelector(`.films-list__container`);
+const topRatedContainer = topRated.querySelector(`.films-list__container`);
 const mostCommentedContainer = mostCommented.querySelector(`.films-list__container`);
 
 render(filmsList, createShowMoreButton(), Positions.BEFORE_END);
-
-const filmsContainer = filmsList.querySelector(`.films-list__container`);
 
 cardsRender(filmsContainer, moviesToRender);
 cardsRender(topRatedContainer, extraMoviesToRender);
