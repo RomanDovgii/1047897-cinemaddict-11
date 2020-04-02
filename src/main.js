@@ -3,6 +3,19 @@
 const moviesToRender = 5;
 const extraMoviesToRender = 2;
 
+const body = document.querySelector(`body`);
+const header = document.querySelector(`.header`);
+const main = document.querySelector(`.main`);
+const footer = document.querySelector(`.footer`);
+
+let films = ``;
+let filmsList = ``;
+let topRated = ``;
+let mostCommented = ``;
+let filmsContainer = ``;
+let topRatedContainer = ``;
+let mostCommentedContainer = ``;
+
 const Positions = {
   BEFORE_BEGIN: `beforebegin`,
   AFTER_BEGIN: `afterbegin`,
@@ -304,29 +317,24 @@ const cardsRender = (container, counter) => {
   }
 };
 
-const body = document.body;
-const header = document.querySelector(`.header`);
-const main = document.querySelector(`.main`);
-const footer = document.querySelector(`.footer`);
-
 render(header, createUserRank(), Positions.BEFORE_END);
 render(main, createMenu(), Positions.BEFORE_END);
 render(main, createSortMenu(), Positions.BEFORE_END);
 render(main, createMoviesContainer(), Positions.BEFORE_END);
 render(footer, createStatistics(), Positions.BEFORE_END);
 
-const films = document.querySelector(`.films`);
+films = document.querySelector(`.films`);
 
 render(films, createAllContainer(), Positions.BEFORE_END);
 render(films, createTopRatedContainer(), Positions.BEFORE_END);
 render(films, createMostCommentedContainer(), Positions.BEFORE_END);
 
-const filmsList = films.querySelector(`.films-list`);
-const topRated = films.querySelector(`.films-list--rated`);
-const mostCommented = films.querySelector(`.films-list--commented`);
-const filmsContainer = filmsList.querySelector(`.films-list__container`);
-const topRatedContainer = topRated.querySelector(`.films-list__container`);
-const mostCommentedContainer = mostCommented.querySelector(`.films-list__container`);
+filmsList = films.querySelector(`.films-list`);
+topRated = films.querySelector(`.films-list--rated`);
+mostCommented = films.querySelector(`.films-list--commented`);
+filmsContainer = filmsList.querySelector(`.films-list__container`);
+topRatedContainer = topRated.querySelector(`.films-list__container`);
+mostCommentedContainer = mostCommented.querySelector(`.films-list__container`);
 
 render(filmsList, createShowMoreButton(), Positions.BEFORE_END);
 
