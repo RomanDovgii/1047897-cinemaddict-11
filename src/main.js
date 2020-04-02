@@ -195,7 +195,7 @@ const createMoviesContainer = () => {
 };
 
 const createAllContainer = () => {
-  return(
+  return (
     `<section class="films-list">
       <h2 class="films-list__title visually-hidden">All movies. Upcoming</h2>
 
@@ -203,7 +203,7 @@ const createAllContainer = () => {
       </div>
     </section>`
   );
-}
+};
 
 const createTopRatedContainer = () => {
   return (
@@ -415,7 +415,7 @@ const createInfoPopup = () => {
 };
 
 const createStatistics = () => {
-  return(
+  return (
     `<section class="footer__statistics">
       <p>130 291 movies inside</p>
     </section>`
@@ -458,11 +458,10 @@ for (let i = 0; i < moviesToRender; i++) {
 const filmsCards = filmsContainer.querySelectorAll(`.film-card`);
 
 let counter = 0;
-filmsCards.forEach(container => {
-    render(container, movies[counter], Positions.BEFORE_END);
-    counter++;
-  }
-);
+filmsCards.forEach((container) => {
+  render(container, movies[counter], Positions.BEFORE_END);
+  counter++;
+});
 
 const topRated = films.querySelector(`.films-list--rated`);
 const topRatedContainer = topRated.querySelector(`.films-list__container`);
@@ -476,11 +475,10 @@ for (let i = 0; i < ratedMoviesToRender; i++) {
 const topRatedCards = topRatedContainer.querySelectorAll(`.film-card`);
 
 counter = 0;
-topRatedCards.forEach(container => {
-    render(container, moviesRated[counter], Positions.BEFORE_END);
-    counter++;
-  }
-);
+topRatedCards.forEach((container) => {
+  render(container, moviesRated[counter], Positions.BEFORE_END);
+  counter++;
+});
 
 for (let i = 0; i < commentedMoviesToRender; i++) {
   render(mostCommentedContainer, createMovieCard(), Positions.BEFORE_END);
@@ -489,10 +487,9 @@ for (let i = 0; i < commentedMoviesToRender; i++) {
 const mostCommentedCards = mostCommentedContainer.querySelectorAll(`.film-card`);
 
 counter = 0;
-mostCommentedCards.forEach(container => {
-    render(container, moviesCommented[counter], Positions.BEFORE_END);
-    counter++;
-  }
-);
+mostCommentedCards.forEach((container) => {
+  render(container, moviesCommented[counter], Positions.BEFORE_END);
+  counter++;
+});
 
 render(body, createInfoPopup(), Positions.BEFORE_END);
