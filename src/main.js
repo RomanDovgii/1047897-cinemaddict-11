@@ -30,9 +30,6 @@ let filmsList;
 let moviesAll;
 let moviesRated;
 let moviesCommented;
-let moviesAllContainer;
-let moviesRatedContainer;
-let moviesCommentedContainer;
 
 const createCards = (template, counter) => {
   let card = template;
@@ -59,19 +56,12 @@ render(footer, createStatistics(), Positions.BEFORE_END);
 
 films = document.querySelector(`.films`);
 
-render(films, createAllContainer(), Positions.BEFORE_END);
-render(films, createTopRatedContainer(), Positions.BEFORE_END);
-render(films, createMostCommentedContainer(), Positions.BEFORE_END);
+render(films, createAllContainer(moviesAll), Positions.BEFORE_END);
+render(films, createTopRatedContainer(moviesRated), Positions.BEFORE_END);
+render(films, createMostCommentedContainer(moviesCommented), Positions.BEFORE_END);
 
 filmsList = films.querySelector(`.films-list`);
-moviesAllContainer = films.querySelector(`.films-list__container--all`);
-moviesRatedContainer = films.querySelector(`.films-list__container--rated`);
-moviesCommentedContainer = films.querySelector(`.films-list__container--commented`);
 
 render(filmsList, createShowMoreButton(), Positions.BEFORE_END);
-
-render(moviesAllContainer, moviesAll, Positions.BEFORE_END);
-render(moviesRatedContainer, moviesRated, Positions.BEFORE_END);
-render(moviesCommentedContainer, moviesCommented, Positions.BEFORE_END);
 
 render(body, createInfoPopup(), Positions.BEFORE_END);
