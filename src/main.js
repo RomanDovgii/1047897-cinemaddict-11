@@ -27,21 +27,26 @@ const Positions = {
 
 let films;
 let filmsList;
-let topRated;
-let mostCommented;
-let filmsContainer;
-let topRatedContainer;
-let mostCommentedContainer;
+let moviesAll;
+let moviesRated;
+let moviesCommented;
+
+const createCards = (template, counter) => {
+  let card = template;
+  let cards = ``;
+  for (let i = 0; i < counter; i++) {
+    cards = cards + card;
+  }
+  return cards;
+};
 
 const render = (container, template, position) => {
   container.insertAdjacentHTML(position, template);
 };
 
-const cardsRender = (container, counter) => {
-  for (let i = 0; i < counter; i++) {
-    render(container, createMovieCardTemplate(), Positions.BEFORE_END);
-  }
-};
+moviesAll = createCards(createMovieCardTemplate(), moviesToRender);
+moviesRated = createCards(createMovieCardTemplate(), extraMoviesToRender);
+moviesCommented = createCards(createMovieCardTemplate(), extraMoviesToRender);
 
 render(header, createUserRank(), Positions.BEFORE_END);
 render(main, createMenu(), Positions.BEFORE_END);
@@ -51,21 +56,12 @@ render(footer, createStatistics(), Positions.BEFORE_END);
 
 films = document.querySelector(`.films`);
 
-render(films, createAllContainer(), Positions.BEFORE_END);
-render(films, createTopRatedContainer(), Positions.BEFORE_END);
-render(films, createMostCommentedContainer(), Positions.BEFORE_END);
+render(films, createAllContainer(moviesAll), Positions.BEFORE_END);
+render(films, createTopRatedContainer(moviesRated), Positions.BEFORE_END);
+render(films, createMostCommentedContainer(moviesCommented), Positions.BEFORE_END);
 
 filmsList = films.querySelector(`.films-list`);
-topRated = films.querySelector(`.films-list--rated`);
-mostCommented = films.querySelector(`.films-list--commented`);
-filmsContainer = filmsList.querySelector(`.films-list__container`);
-topRatedContainer = topRated.querySelector(`.films-list__container`);
-mostCommentedContainer = mostCommented.querySelector(`.films-list__container`);
 
 render(filmsList, createShowMoreButton(), Positions.BEFORE_END);
-
-cardsRender(filmsContainer, moviesToRender);
-cardsRender(topRatedContainer, extraMoviesToRender);
-cardsRender(mostCommentedContainer, extraMoviesToRender);
 
 render(body, createInfoPopup(), Positions.BEFORE_END);
