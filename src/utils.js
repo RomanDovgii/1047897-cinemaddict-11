@@ -23,6 +23,35 @@ export const sortTypes = [
   `raiting`,
 ];
 
+export const genres = [
+  `Absurdic`,
+  `Surreal`,
+  `Whimiscal`,
+  `Action`,
+  `Adventure`,
+  `Comedy`,
+  `Crime`,
+  `Drama`,
+  `Fantasy`,
+  `Historical`,
+  `Historical fiction`,
+  `Horror`,
+  `Magical realism`,
+  `Mystery`,
+  `Paranoid fiction`,
+  `Philosophical`,
+  `Political`,
+  `Romance`,
+  `Saga`,
+  `Satire`,
+  `Science fiction`,
+  `Social`,
+  `Speculative`,
+  `Thriller`,
+  `Urban`,
+  `Western`,
+];
+
 export const MovieDates = {
   THE_DANCE_OF_LIFE: new Date(`1929-01-26`),
   SAGEBRUSH_TRAIL: new Date(`1933-01-26`),
@@ -59,7 +88,7 @@ export const PosterNames = {
   THE_MAN_WITH_THE_GOLDEN_ARM: `the-man-with-the-golden-arm.jpg`,
   SANTA_CLAUS_CONQUERS_THE_MARTIANS: `santa-claus-conquers-the-martians.jpg`,
   POPEYE_THE_SAILOR_MEETS_SINDBAD_THE_SAILOR: `popeye-meets-sinbad.png`,
-  THE_GREAT_FLAMARION: `the-great-Flamarion.jpg`,
+  THE_GREAT_FLAMARION: `the-great-flamarion.jpg`,
   MADE_FOR_EACH_OTHER: `made-for-each-other.png`,
 };
 

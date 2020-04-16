@@ -1,5 +1,6 @@
 import {movieNames, fishText, PosterNames, MovieDates, ImageTypes, MovieDuration, generatePath} from "../utils.js";
-
+import {generateGenres} from "./genre-mock.js";
+import {generateComments} from "./comment-mock.js";
 const numberOfMocks = 40;
 const maxRaiting = 100;
 
@@ -70,13 +71,15 @@ for (let i = 0; i < numberOfMocks; i++) {
   movieMockTemplate.poster = generatePosterPath(movieObjectName);
   movieMockTemplate.year = generateMovieYear(movieObjectName);
   movieMockTemplate.duration = generateMovieDuration(movieObjectName);
-  movieMockTemplate.genre = ``;
+  movieMockTemplate.genre = generateGenres();
   movieMockTemplate.raiting = generateMovieRaiting();
   movieMockTemplate.description = generateMovieDescription();
-  movieMockTemplate.comments = ``;
+  movieMockTemplate.comments = generateComments();
   movieMockTemplate.isWatchlist = true;
   movieMockTemplate.isWatched = true;
   movieMockTemplate.isFavorite = false;
+
+  console.log(movieMockTemplate.comments);
 
   mocks.push(movieMockTemplate);
 }

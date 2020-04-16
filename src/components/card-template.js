@@ -10,11 +10,11 @@ export const createMovieCardTemplate = (movies, from, to) => {
           <p class="film-card__info">
             <span class="film-card__year">${year.getFullYear()}</span>
             <span class="film-card__duration">${duration}</span>
-            <span class="film-card__genre">${genre}</span>
+            <span class="film-card__genre">${genre[0]}</span>
           </p>
           <img src="${poster}" alt="" class="film-card__poster">
           <p class="film-card__description">${description}</p>
-          <a class="film-card__comments">${comments}</a>
+          <a class="film-card__comments">${comments.length} comments</a>
           <form class="film-card__controls">
             <button class="film-card__controls-item button film-card__controls-item--add-to-watchlist ${isWatchlist ? activeClass : ``}">Add to watchlist</button>
             <button class="film-card__controls-item button film-card__controls-item--mark-as-watched ${isWatched ? activeClass : ``}">Mark as watched</button>
