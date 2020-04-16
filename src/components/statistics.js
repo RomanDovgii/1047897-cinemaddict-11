@@ -1,7 +1,7 @@
-export const createStatistics = () => {
+export const createStatistics = (randomNumber) => {
   return (
     `<section class="footer__statistics">
-      <p>130 291 movies inside</p>
+      <p>${randomNumber} movies inside</p>
     </section>`
   );
 };

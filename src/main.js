@@ -1,19 +1,26 @@
-import {createUserRank} from "./components/userRank.js";
+import {createUserRank} from "./components/user-rank.js";
 import {createMenu} from "./components/menu.js";
-import {createSortMenu} from "./components/sortMenu.js";
-import {createMoviesContainer} from "./components/moviesContainer.js";
+import {createSortMenu} from "./components/sort-menu.js";
+import {createMoviesContainer} from "./components/movies-container.js";
 import {createStatistics} from "./components/statistics.js";
-import {createAllContainer} from "./components/allContainer.js";
-import {createTopRatedContainer} from "./components/topRatedContainer.js";
-import {createMostCommentedContainer} from "./components/mostCommentedContainer.js";
-import {createShowMoreButton} from "./components/showMoreButton.js";
-import {createInfoPopup} from "./components/infoPopup.js";
-import {createMovieCardTemplate} from "./components/movieCardTemplate.js";
+import {createAllContainer} from "./components/main-container.js";
+import {createTopRatedContainer} from "./components/rated-container.js";
+import {createMostCommentedContainer} from "./components/commented-container.js";
+import {createShowMoreButton} from "./components/more-button.js";
+// import {createInfoPopup} from "./components/popup.js";
+import {createMovieCardTemplate} from "./components/card-template.js";
+import {createNavigationItems} from "./components/creator-navigation-items.js";
+import {createSortButtons} from "./components/creator-sort-menu-buttons.js";
+
+import {generateRandomIntegerNumber, arraySorterByRaiting, arraySorterByComments} from "./utils.js";
+
+import {readyMocks} from "./mocks/movie-mock.js";
 
 const moviesToRender = 5;
-const extraMoviesToRender = 2;
+const additionalMoviesToRender = 2;
+const moviesToRenderButton = 5;
 
-const body = document.querySelector(`body`);
+// const body = document.querySelector(`body`);
 const header = document.querySelector(`.header`);
 const main = document.querySelector(`.main`);
 const footer = document.querySelector(`.footer`);
@@ -31,12 +38,9 @@ let moviesAll;
 let moviesRated;
 let moviesCommented;
 
-const createCards = (template, counter) => {
-  let card = template;
-  let cards = ``;
-  for (let i = 0; i < counter; i++) {
-    cards = cards + card;
-  }
+// переписать
+const createCards = (template) => {
+  let cards = template;
   return cards;
 };
 
@@ -44,15 +48,15 @@ const render = (container, template, position) => {
   container.insertAdjacentHTML(position, template);
 };
 
-moviesAll = createCards(createMovieCardTemplate(), moviesToRender);
-moviesRated = createCards(createMovieCardTemplate(), extraMoviesToRender);
-moviesCommented = createCards(createMovieCardTemplate(), extraMoviesToRender);
+moviesAll = createCards(createMovieCardTemplate(readyMocks, 0, moviesToRender), moviesToRender);
+moviesRated = createCards(createMovieCardTemplate(arraySorterByRaiting(readyMocks), 0, additionalMoviesToRender), additionalMoviesToRender);
+moviesCommented = createCards(createMovieCardTemplate(arraySorterByComments(readyMocks), 0, additionalMoviesToRender), additionalMoviesToRender);
 
 render(header, createUserRank(), Positions.BEFORE_END);
-render(main, createMenu(), Positions.BEFORE_END);
-render(main, createSortMenu(), Positions.BEFORE_END);
+render(main, createMenu(createNavigationItems()), Positions.BEFORE_END);
+render(main, createSortMenu(createSortButtons()), Positions.BEFORE_END);
 render(main, createMoviesContainer(), Positions.BEFORE_END);
-render(footer, createStatistics(), Positions.BEFORE_END);
+render(footer, createStatistics(generateRandomIntegerNumber()), Positions.BEFORE_END);
 
 films = document.querySelector(`.films`);
 
@@ -64,4 +68,20 @@ filmsList = films.querySelector(`.films-list`);
 
 render(filmsList, createShowMoreButton(), Positions.BEFORE_END);
 
-render(body, createInfoPopup(), Positions.BEFORE_END);
+// render(body, createInfoPopup(), Positions.BEFORE_END);
+
+let moreButton = document.querySelector(`.films-list__show-more`);
+let showingCards = moviesToRender;
+const allContainer = document.querySelector(`.films-list__container--all`);
+
+moreButton.addEventListener(`click`, () => {
+  let prevCardsCount = showingCards;
+  showingCards += moviesToRenderButton;
+
+
+  render(allContainer, createCards(createMovieCardTemplate(readyMocks, prevCardsCount, showingCards), showingCards), `beforeend`);
+
+  if (showingCards >= readyMocks.length) {
+    moreButton.remove();
+  }
+});
