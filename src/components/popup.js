@@ -2,6 +2,7 @@ import {months} from "../utils.js";
 
 export const createInfoPopup = (movie) => {
   const {name, year, duration, country, poster, esrbRaiting, raiting, description, comments, genre, isWatched, isWatchlist, isFavorite} = movie;
+  let movieCommentWord;
   let genres = ``;
   let commentsAll = ``;
 
@@ -27,14 +28,7 @@ export const createInfoPopup = (movie) => {
     </li>`;
   };
 
-  switch (comments.length) {
-    case comments.length > 1:
-      movieCommentWord = `comments`;
-      break;
-    default:
-      movieCommentWord = `comment`;
-      break;
-  }
+  movieCommentWord = comments.length >= 2 ? `comments` : `comment`;
 
   genre.forEach((element) => {
     genres += generateGenreTemplate(element);
@@ -121,7 +115,7 @@ export const createInfoPopup = (movie) => {
 
         <div class="form-details__bottom-container">
           <section class="film-details__comments-wrap">
-            <h3 class="film-details__comments-title"> <span class="film-details__comments-count"></span></h3>
+            <h3 class="film-details__comments-title"> ${movieCommentWord} <span class="film-details__comments-count">${comments.length}</span></h3>
 
             <ul class="film-details__comments-list">
               ${commentsAll}
