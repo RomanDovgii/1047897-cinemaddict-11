@@ -1,4 +1,4 @@
-import {ImageTypes, generatePath, months} from "../utils.js";
+import {ImageTypes, generatePath, months, generateMovieObjectName, generatePosterPath, generateMovieYear, generateMovieDuration} from "../utils.js";
 
 const generateGenreTemplate = (genreLocal) => {
   return `<span class="film-details__genre">${genreLocal}</span>`;
@@ -26,10 +26,14 @@ const generateCommentTemplate = (comment) => {
 };
 
 export const createInfoPopup = (movie) => {
-  const {name, year, duration, country, poster, esrbRaiting, raiting, description, comments, genre, isWatched, isWatchlist, isFavorite} = movie;
+  const {name, country, esrbRaiting, raiting, description, comments, genre, isWatched, isWatchlist, isFavorite} = movie;
   let movieCommentWord;
   let genres = ``;
   let commentsAll = ``;
+  let movieObjectName = generateMovieObjectName(name);
+  let poster = generatePosterPath(movieObjectName);
+  let year = generateMovieYear(movieObjectName);
+  let duration = generateMovieDuration(movieObjectName);
 
   movieCommentWord = comments.length > 1 ? `comments` : `comment`;
 

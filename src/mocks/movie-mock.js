@@ -1,41 +1,13 @@
-import {movieNames, fishText, generateArrayFromString, PosterNames, MovieDates, ImageTypes, MovieDuration, generatePath} from "../utils.js";
+import {movieNames, fishText, generateArrayFromString} from "../utils.js";
 import {generateGenres} from "./genre-mock.js";
 import {generateComments} from "./comment-mock.js";
 const numberOfMocks = 40;
 const maxRaiting = 10;
-
 let movieMockTemplate = {};
-
-let movieObjectName;
 
 // gets a random movie name
 const generateMovieName = () => {
   return movieNames[Math.floor((Math.random() * movieNames.length) + 0)];
-};
-
-// generates object name for the movie
-const generateMovieObjectName = (movieNameLocal) => {
-  return movieNameLocal.toUpperCase().split(` `).join(`_`);
-};
-
-// generates poster path, depends on generateMovieName
-const generatePosterPath = (movieObjectNameLocal) => {
-  return generatePath(ImageTypes.POSTER, PosterNames[movieObjectNameLocal]);
-};
-
-// gets production year depends on generateMovieName
-const generateMovieYear = (MovieObjectNameLocal) => {
-  return MovieDates[MovieObjectNameLocal];
-};
-
-// calculates movie duration with the correct format
-const generateMovieDuration = (MovieObjectNameLocal) => {
-  let duration;
-  let minutes = MovieDuration[MovieObjectNameLocal];
-
-  duration = minutes < 60 ? `${minutes}m` : `${Math.floor(minutes / 60)}h ${minutes % 60}m`;
-
-  return duration;
 };
 
 
@@ -54,6 +26,21 @@ const generateMovieDescription = () => {
 };
 
 // generates movie raiting
+const createMovieMock = () => {
+  return {
+    name: generateMovieName(),
+    country: `USA`,
+    esrbRaiting: `18+`,
+    genre: generateGenres(),
+    raiting: generateMovieRaiting(),
+    description: generateMovieDescription(),
+    comments: generateComments(),
+    isWatchlist: Math.random() >= 0.5,
+    isWatched: Math.random() >= 0.5,
+    isFavorite: Math.random() >= 0.5,
+  };
+};
+
 const generateMovieRaiting = () => {
   return ((Math.random() * maxRaiting) + 0).toFixed(1);
 };
@@ -61,22 +48,7 @@ const generateMovieRaiting = () => {
 let mocks = [];
 
 for (let i = 0; i < numberOfMocks; i++) {
-  movieMockTemplate = {};
-
-  movieMockTemplate.name = generateMovieName();
-  movieObjectName = generateMovieObjectName(movieMockTemplate.name);
-  movieMockTemplate.poster = generatePosterPath(movieObjectName);
-  movieMockTemplate.year = generateMovieYear(movieObjectName);
-  movieMockTemplate.country = `USA`;
-  movieMockTemplate.duration = generateMovieDuration(movieObjectName);
-  movieMockTemplate.esrbRaiting = `18+`;
-  movieMockTemplate.genre = generateGenres();
-  movieMockTemplate.raiting = generateMovieRaiting();
-  movieMockTemplate.description = generateMovieDescription();
-  movieMockTemplate.comments = generateComments();
-  movieMockTemplate.isWatchlist = Math.random() >= 0.5;
-  movieMockTemplate.isWatched = Math.random() >= 0.5;
-  movieMockTemplate.isFavorite = Math.random() >= 0.5;
+  movieMockTemplate = createMovieMock();
 
   mocks.push(movieMockTemplate);
 }

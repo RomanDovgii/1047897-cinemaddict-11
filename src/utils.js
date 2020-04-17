@@ -122,9 +122,7 @@ export const generateArrayFromString = (string) => {
   return string.split(`. `);
 };
 
-export const generateRandomIntegerNumber = (min, max) => {
-  min = min ? min = min : min = 0;
-  max = max ? max = max : max = 1000000;
+export const generateRandomIntegerNumber = (min = 0, max = 1000000) => {
   return Math.floor(Math.random() * (max - min)) + min;
 };
 
@@ -169,4 +167,29 @@ export const getRandomDate = () => {
   targetDate.setDate(targetDate.getDate() + diffValue);
 
   return targetDate;
+};
+
+// generates object name for the movie
+export const generateMovieObjectName = (movieNameLocal) => {
+  return movieNameLocal.toUpperCase().split(` `).join(`_`);
+};
+
+// generates poster path, depends on generateMovieName
+export const generatePosterPath = (movieObjectNameLocal) => {
+  return generatePath(ImageTypes.POSTER, PosterNames[movieObjectNameLocal]);
+};
+
+// gets production year depends on generateMovieName
+export const generateMovieYear = (MovieObjectNameLocal) => {
+  return MovieDates[MovieObjectNameLocal];
+};
+
+// calculates movie duration with the correct format
+export const generateMovieDuration = (MovieObjectNameLocal) => {
+  let duration;
+  let minutes = MovieDuration[MovieObjectNameLocal];
+
+  duration = minutes < 60 ? `${minutes}m` : `${Math.floor(minutes / 60)}h ${minutes % 60}m`;
+
+  return duration;
 };

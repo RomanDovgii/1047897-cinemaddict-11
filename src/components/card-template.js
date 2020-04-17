@@ -1,18 +1,23 @@
+import {generateMovieObjectName, generatePosterPath, generateMovieYear, generateMovieDuration} from "../utils.js";
+
 export const createMovieCards = (movies, from, to) => {
-  let cards = ``;
   let moviesForRender = movies.slice(from, to);
-  moviesForRender.forEach((element) => {
-    cards += createMovieCardTemplate(element);
-  });
+  let cards = Array.from(moviesForRender).reduce((total, element) => {
+    return total + createMovieCardTemplate(element);
+  }, ` `);
   return cards;
 };
 
 
 export const createMovieCardTemplate = (movie) => {
-  const {name, poster, year, duration, genre, raiting, description, comments, isWatchlist, isWatched, isFavorite} = movie;
+  const {name, genre, raiting, description, comments, isWatchlist, isWatched, isFavorite} = movie;
+
+  let movieObjectName = generateMovieObjectName(name);
+  let poster = generatePosterPath(movieObjectName);
+  let year = generateMovieYear(movieObjectName);
+  let duration = generateMovieDuration(movieObjectName);
 
   let activeClass = ` film-card__controls-item--active`;
-
   return `<article class="film-card">
         <h3 class="film-card__title">${name}</h3>
         <p class="film-card__rating">${raiting}</p>
