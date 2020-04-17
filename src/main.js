@@ -93,24 +93,27 @@ moreButton.addEventListener(`click`, () => {
   allCards = allContainer.querySelectorAll(`article`);
 });
 
-const showCard = (evt, cards, array) => {
-  let links = Array.prototype.slice.call(cards);
-  let number = -1;
-  let eventTarget = evt.target.closest(`article`);
-
-  if (links.indexOf(eventTarget)) {
-    number = links.indexOf(eventTarget);
-  }
-
-  if (number >= 0) {
-    render(body, createInfoPopup(array[number]), Positions.BEFORE_END);
-  }
-
+const initiatePopup = () => {
   const popup = document.querySelector(`.film-details`);
   const closePopup = popup.querySelector(`.film-details__close-btn`);
   closePopup.addEventListener(`click`, () => {
     popup.remove();
   });
+};
+
+const showCard = (evt, cards, array) => {
+  let links = Array.prototype.slice.call(cards);
+  let number = -2;
+  let eventTarget = evt.target.closest(`article`);
+
+  if (links.indexOf(eventTarget, -1)) {
+    number = links.indexOf(eventTarget);
+  }
+
+  if (number >= 0) {
+    render(body, createInfoPopup(array[number]), Positions.BEFORE_END);
+    initiatePopup();
+  }
 };
 
 allContainer.addEventListener(`click`, (evt) => {
