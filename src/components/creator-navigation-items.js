@@ -2,7 +2,7 @@ import {createNavigationItem} from "./navigation-item.js";
 import {navigationTypes} from "../utils.js";
 
 const generateMoviesNumber = (type, arrayLocal) => {
-  let number = 0;
+  let number;
 
   switch (type) {
     case `Watchlist`:
