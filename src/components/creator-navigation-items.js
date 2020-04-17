@@ -15,7 +15,7 @@ const generateMoviesNumber = (type, arrayLocal) => {
       number = arrayLocal.slice().filter((element) => element.isFavorite).length;
       break;
     default:
-      number = ``;
+      number = 0;
       break;
   }
 
