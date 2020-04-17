@@ -6,13 +6,13 @@ const generateMoviesNumber = (type, arrayLocal) => {
 
   switch (type) {
     case `Watchlist`:
-      number = arrayLocal.slice().filter((element) => element.isWatchlist === true).length;
+      number = arrayLocal.slice().filter((element) => element.isWatchlist).length;
       break;
     case `History`:
-      number = arrayLocal.slice().filter((element) => element.isWatched === true).length;
+      number = arrayLocal.slice().filter((element) => element.isWatched).length;
       break;
     case `Favorites`:
-      number = arrayLocal.slice().filter((element) => element.isFavorite === true).length;
+      number = arrayLocal.slice().filter((element) => element.isFavorite).length;
       break;
     default:
       number = ``;
