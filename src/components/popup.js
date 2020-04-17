@@ -1,11 +1,14 @@
-import {months} from "../utils.js";
+import {ImageTypes, generatePath, months} from "../utils.js";
 
 const generateGenreTemplate = (genreLocal) => {
   return `<span class="film-details__genre">${genreLocal}</span>`;
 };
 
 const generateCommentTemplate = (comment) => {
-  const {author, text, emotionDescription, emotionPath, date} = comment;
+  const {author, text, emotionDescription, date} = comment;
+
+  let imageName = emotionDescription.split(`emoji-`)[1];
+  let emotionPath = generatePath(ImageTypes.EMOJI, imageName);
 
   return `<li class="film-details__comment">
     <span class="film-details__comment-emoji">
