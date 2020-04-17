@@ -2,7 +2,6 @@ import {months} from "../utils.js";
 
 export const createInfoPopup = (movie) => {
   const {name, year, duration, country, poster, esrbRaiting, raiting, description, comments, genre, isWatched, isWatchlist, isFavorite} = movie;
-  let movieCommentWord;
   let genres = ``;
   let commentsAll = ``;
 
