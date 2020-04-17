@@ -98,11 +98,9 @@ const showCard = (evt, cards, array) => {
   let number = -1;
   let eventTarget = evt.target.closest(`article`);
 
-  links.forEach((element) => {
-    if (eventTarget === element) {
-      number = links.indexOf(eventTarget);
-    }
-  });
+  if (links.indexOf(eventTarget)) {
+    number = links.indexOf(eventTarget);
+  }
 
   if (number >= 0) {
     render(body, createInfoPopup(array[number]), Positions.BEFORE_END);
