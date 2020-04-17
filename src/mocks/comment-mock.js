@@ -8,9 +8,7 @@ export const generateComments = () => {
   let comments = [];
 
   for (let i = 0; i < commentsCount; i++) {
-    let comment = createComment();
-
-    comments.push(comment);
+    comments.push(createComment());
   }
 
   return comments;

@@ -3,7 +3,6 @@ import {generateGenres} from "./genre-mock.js";
 import {generateComments} from "./comment-mock.js";
 const numberOfMocks = 40;
 const maxRaiting = 10;
-let movieMockTemplate = {};
 
 // gets a random movie name
 const generateMovieName = () => {
@@ -48,9 +47,7 @@ const generateMovieRaiting = () => {
 let mocks = [];
 
 for (let i = 0; i < numberOfMocks; i++) {
-  movieMockTemplate = createMovieMock();
-
-  mocks.push(movieMockTemplate);
+  mocks.push(createMovieMock());
 }
 
 export const readyMocks = mocks;
