@@ -25,10 +25,15 @@ const generateCommentTemplate = (comment) => {
   </li>`;
 };
 
+const genresRender = (genresLocal) => {
+  return genresLocal.reduce((total, element) => {
+    return total + generateGenreTemplate(element);
+  }, ` `);
+};
+
 export const createInfoPopup = (movie) => {
   const {name, country, esrbRaiting, raiting, description, comments, genre, isWatched, isWatchlist, isFavorite} = movie;
   let movieCommentWord;
-  let genres = ``;
   let commentsAll = ``;
   let movieObjectName = generateMovieObjectName(name);
   let poster = generatePosterPath(movieObjectName);
@@ -36,10 +41,6 @@ export const createInfoPopup = (movie) => {
   let duration = generateMovieDuration(movieObjectName);
 
   movieCommentWord = comments.length > 1 ? `comments` : `comment`;
-
-  genre.forEach((element) => {
-    genres += generateGenreTemplate(element);
-  });
 
   comments.forEach((element) => {
     commentsAll += generateCommentTemplate(element);
@@ -99,7 +100,7 @@ export const createInfoPopup = (movie) => {
                 <tr class="film-details__row">
                   <td class="film-details__term">Genres</td>
                   <td class="film-details__cell">
-                    ${genres}
+                    ${genresRender(genre)}
                   </td>
                 </tr>
               </table>

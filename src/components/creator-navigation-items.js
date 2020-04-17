@@ -1,30 +1,18 @@
 import {createNavigationItem} from "./navigation-item.js";
 import {navigationTypes} from "../utils.js";
 
-const generateMoviesNumber = (type, obj) => {
+const generateMoviesNumber = (type, arrayLocal) => {
   let number = 0;
 
   switch (type) {
     case `Watchlist`:
-      Array.from(obj).forEach((element) => {
-        if (element.isWatchlist) {
-          number++;
-        }
-      });
+      number = arrayLocal.slice().filter((element) => element.isWatchlist === true).length;
       break;
     case `History`:
-      Array.from(obj).forEach((element) => {
-        if (element.isWatched) {
-          number++;
-        }
-      });
+      number = arrayLocal.slice().filter((element) => element.isWatched === true).length;
       break;
     case `Favorites`:
-      Array.from(obj).forEach((element) => {
-        if (element.isFavorite) {
-          number++;
-        }
-      });
+      number = arrayLocal.slice().filter((element) => element.isFavorite === true).length;
       break;
     default:
       number = ``;
