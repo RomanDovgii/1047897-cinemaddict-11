@@ -1,34 +1,34 @@
 import {months} from "../utils.js";
 
+const generateGenreTemplate = (genreLocal) => {
+  return `<span class="film-details__genre">${genreLocal}</span>`;
+};
+
+const generateCommentTemplate = (comment) => {
+  const {author, text, emotionDescription, emotionPath, date} = comment;
+
+  return `<li class="film-details__comment">
+    <span class="film-details__comment-emoji">
+      <img src="${emotionPath}" width="55" height="55" alt="${emotionDescription}">
+    </span>
+    <div>
+      <p class="film-details__comment-text">${text}</p>
+      <p class="film-details__comment-info">
+        <span class="film-details__comment-author">${author}</span>
+        <span class="film-details__comment-day">${date.getFullYear()}/${date.getMonth()}/${date.getDate()} ${date.getHours()}:${date.getMinutes()}</span>
+        <button class="film-details__comment-delete">Delete</button>
+      </p>
+    </div>
+  </li>`;
+};
+
 export const createInfoPopup = (movie) => {
   const {name, year, duration, country, poster, esrbRaiting, raiting, description, comments, genre, isWatched, isWatchlist, isFavorite} = movie;
   let movieCommentWord;
   let genres = ``;
   let commentsAll = ``;
 
-  const generateGenreTemplate = (genreLocal) => {
-    return `<span class="film-details__genre">${genreLocal}</span>`;
-  };
-
-  const generateCommentTemplate = (comment) => {
-    const {author, text, emotionDescription, emotionPath, date} = comment;
-
-    return `<li class="film-details__comment">
-      <span class="film-details__comment-emoji">
-        <img src="${emotionPath}" width="55" height="55" alt="${emotionDescription}">
-      </span>
-      <div>
-        <p class="film-details__comment-text">${text}</p>
-        <p class="film-details__comment-info">
-          <span class="film-details__comment-author">${author}</span>
-          <span class="film-details__comment-day">${date.getFullYear()}/${date.getMonth()}/${date.getDate()} ${date.getHours()}:${date.getMinutes()}</span>
-          <button class="film-details__comment-delete">Delete</button>
-        </p>
-      </div>
-    </li>`;
-  };
-
-  movieCommentWord = comments.length >= 2 ? `comments` : `comment`;
+  movieCommentWord = comments.length > 1 ? `comments` : `comment`;
 
   genre.forEach((element) => {
     genres += generateGenreTemplate(element);

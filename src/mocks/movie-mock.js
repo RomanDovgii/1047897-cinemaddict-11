@@ -2,7 +2,7 @@ import {movieNames, fishText, generateArrayFromString, PosterNames, MovieDates, 
 import {generateGenres} from "./genre-mock.js";
 import {generateComments} from "./comment-mock.js";
 const numberOfMocks = 40;
-const maxRaiting = 100;
+const maxRaiting = 10;
 
 let movieMockTemplate = {};
 
@@ -55,7 +55,7 @@ const generateMovieDescription = () => {
 
 // generates movie raiting
 const generateMovieRaiting = () => {
-  return (Math.floor((Math.random() * maxRaiting) + 0)) / 10;
+  return ((Math.random() * maxRaiting) + 0).toFixed(1);
 };
 
 let mocks = [];

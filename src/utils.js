@@ -95,16 +95,6 @@ export const MovieDuration = {
   MADE_FOR_EACH_OTHER: 92,
 };
 
-export const MovieGenre = {
-  THE_DANCE_OF_LIFE: 115,
-  SAGEBRUSH_TRAIL: 54,
-  THE_MAN_WITH_THE_GOLDEN_ARM: 119,
-  SANTA_CLAUS_CONQUERS_THE_MARTIANS: 81,
-  POPEYE_THE_SAILOR_MEETS_SINDBAD_THE_SAILOR: 16,
-  THE_GREAT_FLAMARION: 78,
-  MADE_FOR_EACH_OTHER: 92,
-};
-
 export const PosterNames = {
   THE_DANCE_OF_LIFE: `the-dance-of-life.jpg`,
   SAGEBRUSH_TRAIL: `sagebrush-trail.jpg`,
@@ -122,13 +112,6 @@ export const emojiDescription = [
   `emoji-angry`,
 ];
 
-export const EmojiPath = {
-  SMILE: `smile.png`,
-  SLEEPING: `sleeping.png`,
-  PUKE: `puke.png`,
-  ANGRY: `angry.png`,
-};
-
 export const ImageTypes = {
   POSTER: `posters`,
   ICON: `icons`,
@@ -140,8 +123,8 @@ export const generateArrayFromString = (string) => {
 };
 
 export const generateRandomIntegerNumber = (min, max) => {
-  min = !min ? min = 0 : min = min;
-  max = !max ? max = 1000000 : max = max;
+  min = min ? min = min : min = 0;
+  max = max ? max = max : max = 1000000;
   return Math.floor(Math.random() * (max - min)) + min;
 };
 

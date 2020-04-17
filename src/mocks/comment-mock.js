@@ -8,16 +8,21 @@ export const generateComments = () => {
   let comments = [];
 
   for (let i = 0; i < commentsCount; i++) {
-    let comment = {};
-    comment.author = userNames[generateRandomIntegerNumber(0, userNames.length)];
-    comment.text = commentTexts[generateRandomIntegerNumber(0, commentTexts.length)];
-    comment.emotionDescription = emojiDescription[generateRandomIntegerNumber(0, emojiDescription.length)];
-    let imageName = comment.emotionDescription.split(`emoji-`)[1];
-    comment.emotionPath = generatePath(ImageTypes.EMOJI, imageName);
-    comment.date = getRandomDate();
+    let comment = createComment();
 
     comments.push(comment);
   }
 
   return comments;
+};
+
+const createComment = () => {
+  let obj = {};
+  obj.author = userNames[generateRandomIntegerNumber(0, userNames.length)];
+  obj.text = commentTexts[generateRandomIntegerNumber(0, commentTexts.length)];
+  obj.emotionDescription = emojiDescription[generateRandomIntegerNumber(0, emojiDescription.length)];
+  let imageName = obj.emotionDescription.split(`emoji-`)[1];
+  obj.emotionPath = generatePath(ImageTypes.EMOJI, imageName);
+  obj.date = getRandomDate();
+  return obj;
 };

@@ -2,14 +2,8 @@ export const createComment = (comment) => {
   const {commentAuthor, commentText, commentEmotionPath, commentEmotionDescription, commentDays} = comment;
   let commentDaysWord;
 
-  switch (commentDays) {
-    case commentDays > 1:
-      commentDaysWord = `days ago`;
-      break;
-    default:
-      commentDaysWord = `day ago`;
-      break;
-  }
+  commentDaysWord = commentDays > 1 ? `days ago` : `day ago`;
+
   return (`
     <li class="film-details__comment">
     <span class="film-details__comment-emoji">

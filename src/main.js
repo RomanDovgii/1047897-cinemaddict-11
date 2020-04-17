@@ -8,7 +8,7 @@ import {createTopRatedContainer} from "./components/rated-container.js";
 import {createMostCommentedContainer} from "./components/commented-container.js";
 import {createShowMoreButton} from "./components/more-button.js";
 import {createInfoPopup} from "./components/popup.js";
-import {createMovieCardTemplate} from "./components/card-template.js";
+import {createMovieCards} from "./components/card-template.js";
 import {createNavigationItems} from "./components/creator-navigation-items.js";
 import {createSortButtons} from "./components/creator-sort-menu-buttons.js";
 
@@ -48,12 +48,12 @@ const render = (container, template, position) => {
   container.insertAdjacentHTML(position, template);
 };
 
-moviesAll = createCards(createMovieCardTemplate(readyMocks, 0, moviesToRender), moviesToRender);
-moviesRated = createCards(createMovieCardTemplate(arraySorterByRaiting(readyMocks), 0, additionalMoviesToRender), additionalMoviesToRender);
-moviesCommented = createCards(createMovieCardTemplate(arraySorterByComments(readyMocks), 0, additionalMoviesToRender), additionalMoviesToRender);
+moviesAll = createCards(createMovieCards(readyMocks, 0, moviesToRender), moviesToRender);
+moviesRated = createCards(createMovieCards(arraySorterByRaiting(readyMocks), 0, additionalMoviesToRender), additionalMoviesToRender);
+moviesCommented = createCards(createMovieCards(arraySorterByComments(readyMocks), 0, additionalMoviesToRender), additionalMoviesToRender);
 
-render(header, createUserRank(), Positions.BEFORE_END);
-render(main, createMenu(createNavigationItems()), Positions.BEFORE_END);
+render(header, createUserRank(`Movie Buff`), Positions.BEFORE_END);
+render(main, createMenu(createNavigationItems(readyMocks)), Positions.BEFORE_END);
 render(main, createSortMenu(createSortButtons()), Positions.BEFORE_END);
 render(main, createMoviesContainer(), Positions.BEFORE_END);
 render(footer, createStatistics(generateRandomIntegerNumber()), Positions.BEFORE_END);
@@ -81,64 +81,47 @@ moreButton.addEventListener(`click`, () => {
   showingCards += moviesToRenderButton;
 
 
-  render(allContainer, createCards(createMovieCardTemplate(readyMocks, prevCardsCount, showingCards), showingCards), `beforeend`);
+  render(allContainer, createCards(createMovieCards(readyMocks, prevCardsCount, showingCards), showingCards), `beforeend`);
 
   if (showingCards >= readyMocks.length) {
     moreButton.remove();
   }
 });
 
-allContainer.addEventListener(`click`, (evt) => {
-  let cards = allContainer.querySelectorAll(`article`);
-  let linksMassive = Array.prototype.slice.call(cards);
+let allCards = allContainer.querySelectorAll(`article`);
+let topCards = topContainer.querySelectorAll(`article`);
+let commentedCards = commentedContainer.querySelectorAll(`article`);
+
+const showCard = (evt, cards, array) => {
+  let links = Array.prototype.slice.call(cards);
   let number = -1;
   let eventTarget = evt.target.closest(`article`);
 
-  linksMassive.forEach((element) => {
-
-
+  links.forEach((element) => {
     if (eventTarget === element) {
-      number = linksMassive.indexOf(element);
+      number = links.indexOf(element);
     }
   });
 
   if (number >= 0) {
-    render(body, createInfoPopup(readyMocks[number]), Positions.BEFORE_END);
+    render(body, createInfoPopup(array[number]), Positions.BEFORE_END);
   }
+
+  const popup = document.querySelector(`.film-details`);
+  const closePopup = popup.querySelector(`.film-details__close-btn`);
+  closePopup.addEventListener(`click`, () => {
+    popup.remove();
+  });
+};
+
+allContainer.addEventListener(`click`, (evt) => {
+  showCard(evt, allCards, readyMocks);
 });
 
 topContainer.addEventListener(`click`, (evt) => {
-  let cards = topContainer.querySelectorAll(`article`);
-  let linksMassive = Array.prototype.slice.call(cards);
-  let number = -1;
-  let eventTarget = evt.target.closest(`article`);
-
-  linksMassive.forEach((element) => {
-
-
-    if (eventTarget === element) {
-      number = linksMassive.indexOf(element);
-    }
-  });
-
-  if (number >= 0) {
-    render(body, createInfoPopup(arraySorterByRaiting(readyMocks)[number]), Positions.BEFORE_END);
-  }
+  showCard(evt, topCards, arraySorterByRaiting(readyMocks));
 });
 
 commentedContainer.addEventListener(`click`, (evt) => {
-  let cards = commentedContainer.querySelectorAll(`article`);
-  let linksMassive = Array.prototype.slice.call(cards);
-  let number = -1;
-  let eventTarget = evt.target.closest(`article`);
-
-  linksMassive.forEach((element) => {
-    if (eventTarget === element) {
-      number = linksMassive.indexOf(element);
-    }
-  });
-
-  if (number >= 0) {
-    render(body, createInfoPopup(arraySorterByComments(readyMocks)[number]), Positions.BEFORE_END);
-  }
+  showCard(evt, commentedCards, arraySorterByComments(readyMocks));
 });

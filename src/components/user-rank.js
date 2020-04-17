@@ -1,5 +1,4 @@
-export const createUserRank = () => {
-  let userRanking = `Movie Buff`;
+export const createUserRank = (userRanking) => {
   return (
     `<section class="header__profile profile">
       <p class="profile__rating">${userRanking}</p>
