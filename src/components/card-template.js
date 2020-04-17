@@ -2,10 +2,9 @@ import {generateMovieObjectName, generatePosterPath, generateMovieYear, generate
 
 export const createMovieCards = (movies, from, to) => {
   let moviesForRender = movies.slice(from, to);
-  let cards = Array.from(moviesForRender).reduce((total, element) => {
+  return moviesForRender.reduce((total, element) => {
     return total + createMovieCardTemplate(element);
   }, ` `);
-  return cards;
 };
 
 
