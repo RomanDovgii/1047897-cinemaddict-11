@@ -76,21 +76,22 @@ const allContainer = document.querySelector(`.films-list__container--all`);
 const topContainer = document.querySelector(`.films-list__container--rated`);
 const commentedContainer = document.querySelector(`.films-list__container--commented`);
 
+let allCards = allContainer.querySelectorAll(`article`);
+let topCards = topContainer.querySelectorAll(`article`);
+let commentedCards = commentedContainer.querySelectorAll(`article`);
+
 moreButton.addEventListener(`click`, () => {
   let prevCardsCount = showingCards;
   showingCards += moviesToRenderButton;
-
 
   render(allContainer, createCards(createMovieCards(readyMocks, prevCardsCount, showingCards), showingCards), `beforeend`);
 
   if (showingCards >= readyMocks.length) {
     moreButton.remove();
   }
-});
 
-let allCards = allContainer.querySelectorAll(`article`);
-let topCards = topContainer.querySelectorAll(`article`);
-let commentedCards = commentedContainer.querySelectorAll(`article`);
+  allCards = allContainer.querySelectorAll(`article`);
+});
 
 const showCard = (evt, cards, array) => {
   let links = Array.prototype.slice.call(cards);
@@ -99,7 +100,7 @@ const showCard = (evt, cards, array) => {
 
   links.forEach((element) => {
     if (eventTarget === element) {
-      number = links.indexOf(element);
+      number = links.indexOf(eventTarget);
     }
   });
 
