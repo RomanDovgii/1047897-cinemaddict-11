@@ -1,4 +1,4 @@
-import {movieNames, fishText, PosterNames, MovieDates, ImageTypes, MovieDuration, generatePath} from "../utils.js";
+import {movieNames, fishText, generateArrayFromString, PosterNames, MovieDates, ImageTypes, MovieDuration, generatePath} from "../utils.js";
 import {generateGenres} from "./genre-mock.js";
 import {generateComments} from "./comment-mock.js";
 const numberOfMocks = 40;
@@ -38,9 +38,6 @@ const generateMovieDuration = (MovieObjectNameLocal) => {
   return duration;
 };
 
-const generateArrayFromString = (string) => {
-  return string.split(`. `);
-};
 
 // generates movie description
 const generateMovieDescription = () => {
@@ -70,16 +67,16 @@ for (let i = 0; i < numberOfMocks; i++) {
   movieObjectName = generateMovieObjectName(movieMockTemplate.name);
   movieMockTemplate.poster = generatePosterPath(movieObjectName);
   movieMockTemplate.year = generateMovieYear(movieObjectName);
+  movieMockTemplate.country = `USA`;
   movieMockTemplate.duration = generateMovieDuration(movieObjectName);
+  movieMockTemplate.esrbRaiting = `18+`;
   movieMockTemplate.genre = generateGenres();
   movieMockTemplate.raiting = generateMovieRaiting();
   movieMockTemplate.description = generateMovieDescription();
   movieMockTemplate.comments = generateComments();
-  movieMockTemplate.isWatchlist = true;
-  movieMockTemplate.isWatched = true;
-  movieMockTemplate.isFavorite = false;
-
-  console.log(movieMockTemplate.comments);
+  movieMockTemplate.isWatchlist = Math.random() >= 0.5;
+  movieMockTemplate.isWatched = Math.random() >= 0.5;
+  movieMockTemplate.isFavorite = Math.random() >= 0.5;
 
   mocks.push(movieMockTemplate);
 }

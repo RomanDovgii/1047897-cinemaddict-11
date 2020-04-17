@@ -1,15 +1,49 @@
-export const createInfoPopup = (movie) => {
-  const {movieName, movieOriginalName, movieReleaseDate, movieDuration, movieCountry, moviePosterPath, movieESRBRaiting, movieRaiting, movieDescription, movieComments} = movie;
-  let movieCommentWord;
+import {months} from "../utils.js";
 
-  switch (movieComments.length) {
-    case movieComments.length > 1:
+export const createInfoPopup = (movie) => {
+  const {name, year, duration, country, poster, esrbRaiting, raiting, description, comments, genre, isWatched, isWatchlist, isFavorite} = movie;
+  let movieCommentWord;
+  let genres = ``;
+  let commentsAll = ``;
+
+  const generateGenreTemplate = (genreLocal) => {
+    return `<span class="film-details__genre">${genreLocal}</span>`;
+  };
+
+  const generateCommentTemplate = (comment) => {
+    const {author, text, emotionDescription, emotionPath, date} = comment;
+
+    return `<li class="film-details__comment">
+      <span class="film-details__comment-emoji">
+        <img src="${emotionPath}" width="55" height="55" alt="${emotionDescription}">
+      </span>
+      <div>
+        <p class="film-details__comment-text">${text}</p>
+        <p class="film-details__comment-info">
+          <span class="film-details__comment-author">${author}</span>
+          <span class="film-details__comment-day">${date.getFullYear()}/${date.getMonth()}/${date.getDate()} ${date.getHours()}:${date.getMinutes()}</span>
+          <button class="film-details__comment-delete">Delete</button>
+        </p>
+      </div>
+    </li>`;
+  };
+
+  switch (comments.length) {
+    case comments.length > 1:
       movieCommentWord = `comments`;
       break;
     default:
       movieCommentWord = `comment`;
       break;
   }
+
+  genre.forEach((element) => {
+    genres += generateGenreTemplate(element);
+  });
+
+  comments.forEach((element) => {
+    commentsAll += generateCommentTemplate(element);
+  });
 
   return (
     `<section class="film-details">
@@ -20,20 +54,20 @@ export const createInfoPopup = (movie) => {
           </div>
           <div class="film-details__info-wrap">
             <div class="film-details__poster">
-              <img class="film-details__poster-img" src="${moviePosterPath}" alt="">
+              <img class="film-details__poster-img" src="${poster}" alt="">
 
-              <p class="film-details__age">${movieESRBRaiting}</p>
+              <p class="film-details__age">${esrbRaiting}</p>
             </div>
 
             <div class="film-details__info">
               <div class="film-details__info-head">
                 <div class="film-details__title-wrap">
-                  <h3 class="film-details__title">${movieName}</h3>
-                  <p class="film-details__title-original">Original: ${movieOriginalName}</p>
+                  <h3 class="film-details__title">${name}</h3>
+                  <p class="film-details__title-original">Original: ${name}</p>
                 </div>
 
                 <div class="film-details__rating">
-                  <p class="film-details__total-rating">${movieRaiting}</p>
+                  <p class="film-details__total-rating">${raiting}</p>
                 </div>
               </div>
 
@@ -52,48 +86,46 @@ export const createInfoPopup = (movie) => {
                 </tr>
                 <tr class="film-details__row">
                   <td class="film-details__term">Release Date</td>
-                  <td class="film-details__cell">${movieReleaseDate}</td>
+                  <td class="film-details__cell">${year.getDate()} ${months[year.getMonth()]} ${year.getFullYear()}</td>
                 </tr>
                 <tr class="film-details__row">
                   <td class="film-details__term">Runtime</td>
-                  <td class="film-details__cell">${movieDuration}</td>
+                  <td class="film-details__cell">${duration}</td>
                 </tr>
                 <tr class="film-details__row">
                   <td class="film-details__term">Country</td>
-                  <td class="film-details__cell">${movieCountry}</td>
+                  <td class="film-details__cell">${country}</td>
                 </tr>
                 <tr class="film-details__row">
                   <td class="film-details__term">Genres</td>
                   <td class="film-details__cell">
-                    <span class="film-details__genre">Drama</span>
-                    <span class="film-details__genre">Film-Noir</span>
-                    <span class="film-details__genre">Mystery</span>
+                    ${genres}
                   </td>
                 </tr>
               </table>
 
-              <p class="film-details__film-description">${movieDescription}</p>
+              <p class="film-details__film-description">${description}</p>
             </div>
           </div>
 
           <section class="film-details__controls">
-            <input type="checkbox" class="film-details__control-input visually-hidden" id="watchlist" name="watchlist">
+            <input type="checkbox" class="film-details__control-input visually-hidden" id="watchlist" name="watchlist" ${isWatchlist ? `checked` : ``}>
             <label for="watchlist" class="film-details__control-label film-details__control-label--watchlist">Add to watchlist</label>
 
-            <input type="checkbox" class="film-details__control-input visually-hidden" id="watched" name="watched">
+            <input type="checkbox" class="film-details__control-input visually-hidden" id="watched" name="watched" ${isWatched ? `checked` : ``}>
             <label for="watched" class="film-details__control-label film-details__control-label--watched">Already watched</label>
 
-            <input type="checkbox" class="film-details__control-input visually-hidden" id="favorite" name="favorite">
+            <input type="checkbox" class="film-details__control-input visually-hidden" id="favorite" name="favorite" ${isFavorite ? `checked` : ``}>
             <label for="favorite" class="film-details__control-label film-details__control-label--favorite">Add to favorites</label>
           </section>
         </div>
 
         <div class="form-details__bottom-container">
           <section class="film-details__comments-wrap">
-            <h3 class="film-details__comments-title">${movieCommentWord} <span class="film-details__comments-count">${movieComments.keys().length}</span></h3>
+            <h3 class="film-details__comments-title"> <span class="film-details__comments-count"></span></h3>
 
             <ul class="film-details__comments-list">
-              ${movieComments}
+              ${commentsAll}
             </ul>
 
             <div class="film-details__new-comment">
