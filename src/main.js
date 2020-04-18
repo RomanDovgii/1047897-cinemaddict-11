@@ -94,7 +94,7 @@ const removePopup = () => {
   document.removeEventListener(`keydown`, onEscKeydown);
 };
 
-const documentOutsidePopupClickHandler = (evt) => {
+const documentClickHandler = (evt) => {
   let eventTarget = evt.target;
   if ((!eventTarget.closest(`.film-details`))) {
     removePopup();
@@ -115,7 +115,7 @@ const initiatePopup = (evt) => {
     removePopup();
   });
   if (popup) {
-    document.addEventListener(`click`, documentOutsidePopupClickHandler);
+    document.addEventListener(`click`, documentClickHandler);
     document.addEventListener(`keydown`, documentEscKeydownHandler);
   }
 };
