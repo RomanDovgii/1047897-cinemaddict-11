@@ -90,8 +90,8 @@ moreButton.addEventListener(`click`, () => {
 const removePopup = () => {
   const popup = document.querySelector(`.film-details`);
   popup.remove();
-  document.removeEventListener(`click`, outsidePopupClick);
-  document.removeEventListener(`keydown`, onEscKeydown);
+  document.removeEventListener(`click`, documentEscKeydownHandler);
+  document.removeEventListener(`keydown`, documentEscKeydownHandler);
 };
 
 const documentClickHandler = (evt) => {
