@@ -1,20 +1,14 @@
-import {movieNames, fishText, generateArrayFromString, generateRandomIntegerNumber} from "../utils.js";
+import {movieNames, fishText, generateArrayFromString} from "../utils.js";
 import {generateGenres} from "./genre-mock.js";
 import {generateComments} from "./comment-mock.js";
 const numberOfMocks = 40;
 const maxRaiting = 10;
-let id = 0;
 
 // gets a random movie name
 const generateMovieName = () => {
   return movieNames[Math.floor((Math.random() * movieNames.length) + 0)];
 };
 
-const generateId = () => {
-  let localId = `film_` + id;
-  id++;
-  return localId;
-};
 // generates movie description
 const generateMovieDescription = () => {
   const maxSentencesCount = 5;
@@ -30,10 +24,10 @@ const generateMovieDescription = () => {
 };
 
 // generates movie raiting
-const createMovieMock = () => {
+const createMovieMock = (number) => {
   return {
     name: generateMovieName(),
-    id: generateId(),
+    id: `film_` + number,
     country: `USA`,
     esrbRaiting: `18+`,
     genre: generateGenres(),
@@ -53,7 +47,7 @@ const generateMovieRaiting = () => {
 let mocks = [];
 
 for (let i = 0; i < numberOfMocks; i++) {
-  mocks.push(createMovieMock());
+  mocks.push(createMovieMock(i));
 }
 
 export const readyMocks = mocks;

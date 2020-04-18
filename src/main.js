@@ -87,12 +87,12 @@ moreButton.addEventListener(`click`, () => {
   }
 });
 
-const onClickOutsideHandler = (evt) => {
+const outsidePopupClickHandler = (evt) => {
   const popup = document.querySelector(`.film-details`);
   let eventTarget = evt.target;
   if ((!eventTarget.closest(`.film-details`))) {
     popup.remove();
-    document.removeEventListener(onClickOutsideHandler);
+    document.removeEventListener(`click`, outsidePopupClickHandler);
   }
 };
 
@@ -101,11 +101,11 @@ const initiatePopup = () => {
   const closePopup = popup.querySelector(`.film-details__close-btn`);
   closePopup.addEventListener(`click`, () => {
     popup.remove();
-    document.removeEventListener();
+    document.removeEventListener(`click`, outsidePopupClickHandler);
   });
   event.stopPropagation();
   if (popup) {
-    document.addEventListener(`click`, onClickOutsideHandler);
+    document.addEventListener(`click`, outsidePopupClickHandler);
   }
 };
 
