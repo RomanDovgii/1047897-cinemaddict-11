@@ -100,37 +100,46 @@ const initiatePopup = () => {
   closePopup.addEventListener(`click`, () => {
     popup.remove();
   });
+  event.stopPropagation();
+  if (popup) {
+    document.addEventListener(`click`, (evt) => {
+      let eventTarget = evt.target;
+      if ((!eventTarget.closest(`.film-details`))) {
+        popup.remove();
+      }
+    });
+  }
 };
 
-const showCard = (evt, cards, array) => {
+const showCard = (evt, array) => {
   let eventTarget = evt.target.closest(`article`);
   if (eventTarget) {
     const popup = document.querySelector(`.film-details`);
     if (popup) {
       popup.remove();
     }
-    render(body, createInfoPopup(array.slice().filter((element) => (element.id.toString() === eventTarget.id))[0]), Positions.BEFORE_END);
+    render(body, createInfoPopup(array.find((element) => (element.id.toString() === eventTarget.id))), Positions.BEFORE_END);
     initiatePopup();
   }
 };
 
 allContainer.addEventListener(`click`, (evt) => {
-  showCard(evt, allCards, readyMocks);
+  showCard(evt, readyMocks);
 });
 
 topContainer.addEventListener(`click`, (evt) => {
-  showCard(evt, topCards, arraySorterByRaiting(readyMocks));
+  showCard(evt, arraySorterByRaiting(readyMocks));
 });
 
 commentedContainer.addEventListener(`click`, (evt) => {
-  showCard(evt, commentedCards, arraySorterByComments(readyMocks));
+  showCard(evt, arraySorterByComments(readyMocks));
 });
 
 body.addEventListener(`DOMNodeInserted`, () => {
   const popup = document.querySelector(`.film-details`);
   let click = 0;
   if (popup) {
-    html.addEventListener(`click`, (evt) => {
+    document.addEventListener(`click`, (evt) => {
       let eventTarget = evt.target;
       if ((!eventTarget.closest(`.film-details`)) && (click > 0)) {
         popup.remove();

@@ -3,7 +3,7 @@ import {generateGenres} from "./genre-mock.js";
 import {generateComments} from "./comment-mock.js";
 const numberOfMocks = 40;
 const maxRaiting = 10;
-const ids = [];
+let id = 0;
 
 // gets a random movie name
 const generateMovieName = () => {
@@ -11,18 +11,9 @@ const generateMovieName = () => {
 };
 
 const generateId = () => {
-  let iterator = 0;
-  let id = generateRandomIntegerNumber(0, numberOfMocks);
-
-  while (iterator < 1) {
-    if (ids.includes(id)) {
-      id = generateRandomIntegerNumber(0, numberOfMocks);
-    } else {
-      ids.push(id);
-      iterator++;
-    }
-  }
-  return id;
+  let localId = `film_` + id;
+  id++;
+  return localId;
 };
 // generates movie description
 const generateMovieDescription = () => {
