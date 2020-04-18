@@ -2,6 +2,7 @@ export const fishText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit
 
 export const Keycodes = {
   ESC: 27,
+  ENTER: 13,
 };
 
 export const months = [
