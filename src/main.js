@@ -20,6 +20,7 @@ const moviesToRender = 5;
 const additionalMoviesToRender = 2;
 const moviesToRenderButton = 5;
 
+const html = document.querySelector(`html`);
 const body = document.querySelector(`body`);
 const header = document.querySelector(`.header`);
 const main = document.querySelector(`.main`);
@@ -102,16 +103,13 @@ const initiatePopup = () => {
 };
 
 const showCard = (evt, cards, array) => {
-  let links = Array.prototype.slice.call(cards);
-  let number = -2;
   let eventTarget = evt.target.closest(`article`);
-
-  if (links.indexOf(eventTarget, -1)) {
-    number = links.indexOf(eventTarget);
-  }
-
-  if (number >= 0) {
-    render(body, createInfoPopup(array[number]), Positions.BEFORE_END);
+  if (eventTarget) {
+    const popup = document.querySelector(`.film-details`);
+    if (popup) {
+      popup.remove();
+    }
+    render(body, createInfoPopup(array.slice().filter((element) => (element.id.toString() === eventTarget.id))[0]), Positions.BEFORE_END);
     initiatePopup();
   }
 };
@@ -126,4 +124,18 @@ topContainer.addEventListener(`click`, (evt) => {
 
 commentedContainer.addEventListener(`click`, (evt) => {
   showCard(evt, commentedCards, arraySorterByComments(readyMocks));
+});
+
+body.addEventListener(`DOMNodeInserted`, () => {
+  const popup = document.querySelector(`.film-details`);
+  let click = 0;
+  if (popup) {
+    html.addEventListener(`click`, (evt) => {
+      let eventTarget = evt.target;
+      if ((!eventTarget.closest(`.film-details`)) && (click > 0)) {
+        popup.remove();
+      }
+      click++;
+    });
+  }
 });

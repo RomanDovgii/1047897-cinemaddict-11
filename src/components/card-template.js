@@ -7,15 +7,14 @@ export const createMovieCards = (movies, from, to) => {
 
 
 export const createMovieCardTemplate = (movie) => {
-  const {name, genre, raiting, description, comments, isWatchlist, isWatched, isFavorite} = movie;
-
+  const {name, id, genre, raiting, description, comments, isWatchlist, isWatched, isFavorite} = movie;
   let movieObjectName = generateMovieObjectName(name);
   let poster = generatePosterPath(movieObjectName);
   let year = generateMovieYear(movieObjectName);
   let duration = generateMovieDuration(movieObjectName);
 
   let activeClass = ` film-card__controls-item--active`;
-  return `<article class="film-card">
+  return `<article class="film-card" id="${id}">
         <h3 class="film-card__title">${name}</h3>
         <p class="film-card__rating">${raiting}</p>
         <p class="film-card__info">
