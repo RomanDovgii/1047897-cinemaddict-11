@@ -94,14 +94,14 @@ const removePopup = () => {
   document.removeEventListener(`keydown`, onEscKeydown);
 };
 
-const outsidePopupClick = (evt) => {
+const documentOutsidePopupClickHandler = (evt) => {
   let eventTarget = evt.target;
   if ((!eventTarget.closest(`.film-details`))) {
     removePopup();
   }
 };
 
-const onEscKeydown = (evt) => {
+const documentEscKeydownHandler = (evt) => {
   if (evt.keyCode === Keycodes.ESC) {
     removePopup();
   }
@@ -115,8 +115,8 @@ const initiatePopup = (evt) => {
     removePopup();
   });
   if (popup) {
-    document.addEventListener(`click`, outsidePopupClick);
-    document.addEventListener(`keydown`, onEscKeydown);
+    document.addEventListener(`click`, documentOutsidePopupClickHandler);
+    document.addEventListener(`keydown`, documentEscKeydownHandler);
   }
 };
 
