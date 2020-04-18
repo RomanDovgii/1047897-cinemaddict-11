@@ -103,8 +103,8 @@ const initiatePopup = () => {
     popup.remove();
     document.removeEventListener(`click`, outsidePopupClickHandler);
   });
-  event.stopPropagation();
   if (popup) {
+    event.stopPropagation();
     document.addEventListener(`click`, outsidePopupClickHandler);
   }
 };
