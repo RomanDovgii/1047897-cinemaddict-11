@@ -12,7 +12,7 @@ import {createMovieCards} from "./components/card-template.js";
 import {createNavigationItems} from "./components/creator-navigation-items.js";
 import {createSortButtons} from "./components/creator-sort-menu-buttons.js";
 
-import {generateRandomIntegerNumber, arraySorterByRaiting, arraySorterByComments} from "./utils.js";
+import {generateRandomIntegerNumber, arraySorterByRaiting, arraySorterByComments, Keycodes} from "./utils.js";
 
 import {readyMocks} from "./mocks/movie-mock.js";
 
@@ -87,13 +87,23 @@ moreButton.addEventListener(`click`, () => {
   }
 });
 
-const outsidePopupClickHandler = (evt) => {
-  evt.stopPropagation();
+const removePopup = () => {
   const popup = document.querySelector(`.film-details`);
+  popup.remove();
+  document.removeEventListener(`click`, outsidePopupClick);
+  document.removeEventListener(`keydown`, onEscKeydown);
+};
+
+const outsidePopupClick = (evt) => {
   let eventTarget = evt.target;
   if ((!eventTarget.closest(`.film-details`))) {
-    popup.remove();
-    document.removeEventListener(`click`, outsidePopupClickHandler);
+    removePopup();
+  }
+};
+
+const onEscKeydown = (evt) => {
+  if (evt.keyCode === Keycodes.ESC) {
+    removePopup();
   }
 };
 
@@ -102,11 +112,11 @@ const initiatePopup = (evt) => {
   const popup = document.querySelector(`.film-details`);
   const closePopup = popup.querySelector(`.film-details__close-btn`);
   closePopup.addEventListener(`click`, () => {
-    popup.remove();
-    document.removeEventListener(`click`, outsidePopupClickHandler);
+    removePopup();
   });
   if (popup) {
-    document.addEventListener(`click`, outsidePopupClickHandler);
+    document.addEventListener(`click`, outsidePopupClick);
+    document.addEventListener(`keydown`, onEscKeydown);
   }
 };
 
