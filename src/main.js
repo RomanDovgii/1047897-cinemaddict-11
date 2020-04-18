@@ -88,6 +88,7 @@ moreButton.addEventListener(`click`, () => {
 });
 
 const outsidePopupClickHandler = (evt) => {
+  evt.stopPropagation();
   const popup = document.querySelector(`.film-details`);
   let eventTarget = evt.target;
   if ((!eventTarget.closest(`.film-details`))) {
@@ -96,7 +97,8 @@ const outsidePopupClickHandler = (evt) => {
   }
 };
 
-const initiatePopup = () => {
+const initiatePopup = (evt) => {
+  evt.stopPropagation();
   const popup = document.querySelector(`.film-details`);
   const closePopup = popup.querySelector(`.film-details__close-btn`);
   closePopup.addEventListener(`click`, () => {
@@ -104,12 +106,12 @@ const initiatePopup = () => {
     document.removeEventListener(`click`, outsidePopupClickHandler);
   });
   if (popup) {
-    event.stopPropagation();
     document.addEventListener(`click`, outsidePopupClickHandler);
   }
 };
 
 const showCard = (evt, array) => {
+  evt.stopPropagation();
   let eventTarget = evt.target.closest(`article`);
   if (eventTarget) {
     const popup = document.querySelector(`.film-details`);
@@ -117,7 +119,7 @@ const showCard = (evt, array) => {
       popup.remove();
     }
     render(body, createInfoPopup(array.find((element) => (element.id.toString() === eventTarget.id))), Positions.BEFORE_END);
-    initiatePopup();
+    initiatePopup(evt);
   }
 };
 
