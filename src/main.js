@@ -93,8 +93,6 @@ const removePopup = () => {
   popup.remove();
   document.removeEventListener(`click`, documentClickHandler);
   document.removeEventListener(`keydown`, documentEscKeydownHandler);
-
-
 };
 
 const documentClickHandler = (evt) => {
