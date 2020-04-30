@@ -1,5 +1,4 @@
-import {ImageTypes, generatePath, months, generateMovieObjectName, generatePosterPath, generateMovieYear, generateMovieDuration} from "../utils.js";
-import {createElement} from "../../../1047897-taskmanager-11/src/utils.js";
+import {ImageTypes, generatePath, createElement, months, generateMovieObjectName, generatePosterPath, generateMovieYear, generateMovieDuration} from "../utils.js";
 
 const generateGenreTemplate = (genreLocal) => {
   return `<span class="film-details__genre">${genreLocal}</span>`;

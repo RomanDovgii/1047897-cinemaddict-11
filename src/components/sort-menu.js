@@ -1,5 +1,4 @@
-import {sortTypes} from "../utils.js";
-import {createElement} from "../../../1047897-taskmanager-11/src/utils.js";
+import {sortTypes, createElement} from "../utils.js";
 
 const createSortMenu = (sortButtons) => {
   return (

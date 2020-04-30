@@ -1,5 +1,4 @@
-import {navigationTypes} from "../utils.js";
-import {createElement} from "../../../1047897-taskmanager-11/src/utils.js";
+import {navigationTypes, createElement} from "../utils.js";
 
 const createMenu = (navigationItems) => {
   return (
