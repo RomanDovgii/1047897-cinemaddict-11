@@ -60,6 +60,8 @@ const allContainer = document.querySelector(`.films-list__container--all`);
 const topContainer = document.querySelector(`.films-list__container--rated`);
 const commentedContainer = document.querySelector(`.films-list__container--commented`);
 
+// events
+
 moreButton.addEventListener(`click`, () => {
   let prevCardsCount = showingCards;
   showingCards += moviesToRenderButton;
