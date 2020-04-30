@@ -1,18 +1,14 @@
-import {createUserRank} from "./components/user-rank.js";
-import {createMenu} from "./components/menu.js";
-import {createSortMenu} from "./components/sort-menu.js";
-import {createMoviesContainer} from "./components/movies-container.js";
-import {createStatistics} from "./components/statistics.js";
-import {createAllContainer} from "./components/main-container.js";
-import {createTopRatedContainer} from "./components/rated-container.js";
-import {createMostCommentedContainer} from "./components/commented-container.js";
-import {createShowMoreButton} from "./components/more-button.js";
-import {createInfoPopup} from "./components/popup.js";
-import {createMovieCards} from "./components/card-template.js";
-import {createNavigationItems} from "./components/creator-navigation-items.js";
-import {createSortButtons} from "./components/creator-sort-menu-buttons.js";
+import UserRank from "./components/user-rank.js";
+import SortMenu from "./components/sort-menu.js";
+import MoviesContainer from "./components/movies-container.js";
+import Statistics from "./components/statistics.js";
+import Films from "./components/containers.js";
+import MoreButton from "./components/more-button.js";
+import Popup from "./components/popup.js";
+import Menu from "./components/menu.js";
+import Cards from "./components/card-template.js";
 
-import {generateRandomIntegerNumber, arraySorterByRaiting, arraySorterByComments, Keycodes} from "./utils.js";
+import {generateRandomIntegerNumber, arraySorterByRaiting, arraySorterByComments, Keycodes, render} from "./utils.js";
 
 import {readyMocks} from "./mocks/movie-mock.js";
 
@@ -38,37 +34,25 @@ let moviesAll;
 let moviesRated;
 let moviesCommented;
 
-// переписать
-const createCards = (template) => {
-  let cards = template;
-  return cards;
-};
+moviesAll = new Cards(readyMocks, 0, moviesToRender).getCards();
+moviesRated = new Cards(arraySorterByRaiting(readyMocks), 0, additionalMoviesToRender).getCards();
+moviesCommented = new Cards(arraySorterByComments(readyMocks), 0, additionalMoviesToRender).getCards();
 
-const render = (container, template, position) => {
-  container.insertAdjacentHTML(position, template);
-};
-
-moviesAll = createCards(createMovieCards(readyMocks, 0, moviesToRender), moviesToRender);
-moviesRated = createCards(createMovieCards(arraySorterByRaiting(readyMocks), 0, additionalMoviesToRender), additionalMoviesToRender);
-moviesCommented = createCards(createMovieCards(arraySorterByComments(readyMocks), 0, additionalMoviesToRender), additionalMoviesToRender);
-
-render(header, createUserRank(`Movie Buff`), Positions.BEFORE_END);
-render(main, createMenu(createNavigationItems(readyMocks)), Positions.BEFORE_END);
-render(main, createSortMenu(createSortButtons()), Positions.BEFORE_END);
-render(main, createMoviesContainer(), Positions.BEFORE_END);
-render(footer, createStatistics(generateRandomIntegerNumber()), Positions.BEFORE_END);
+render(header, new UserRank().getUserRank(`Movie Buff`), Positions.BEFORE_END);
+render(main, new Menu().getMenu(readyMocks), Positions.BEFORE_END);
+render(main, new SortMenu().getSortMenu(), Positions.BEFORE_END);
+render(main, new MoviesContainer().getMoviesContainer(), Positions.BEFORE_END);
+render(footer, new Statistics().getStatistics(generateRandomIntegerNumber()), Positions.BEFORE_END);
 
 films = document.querySelector(`.films`);
 
-render(films, createAllContainer(moviesAll), Positions.BEFORE_END);
-render(films, createTopRatedContainer(moviesRated), Positions.BEFORE_END);
-render(films, createMostCommentedContainer(moviesCommented), Positions.BEFORE_END);
+render(films, new Films(moviesAll).getMainContainer(), Positions.BEFORE_END);
+render(films, new Films(moviesRated).getRatedContainer(), Positions.BEFORE_END);
+render(films, new Films(moviesCommented).getCommentedContainer(), Positions.BEFORE_END);
 
 filmsList = films.querySelector(`.films-list`);
 
-render(filmsList, createShowMoreButton(), Positions.BEFORE_END);
-
-// render(body, createInfoPopup(), Positions.BEFORE_END);
+render(filmsList, new MoreButton().getMoreButton(), Positions.BEFORE_END);
 
 let moreButton = document.querySelector(`.films-list__show-more`);
 let showingCards = moviesToRender;
@@ -80,7 +64,7 @@ moreButton.addEventListener(`click`, () => {
   let prevCardsCount = showingCards;
   showingCards += moviesToRenderButton;
 
-  render(allContainer, createCards(createMovieCards(readyMocks, prevCardsCount, showingCards), showingCards), `beforeend`);
+  render(allContainer, new Cards(readyMocks, prevCardsCount, showingCards).getCards(), `beforeend`);
 
   if (showingCards >= readyMocks.length) {
     moreButton.remove();
@@ -129,7 +113,7 @@ const showCard = (evt, array) => {
     if (popup) {
       popup.remove();
     }
-    render(body, createInfoPopup(array.find((element) => (element.id.toString() === eventTarget.id))), Positions.BEFORE_END);
+    render(body, new Popup(array.find((element) => (element.id.toString() === eventTarget.id))).getInfoPopup(), Positions.BEFORE_END);
     initiatePopup(evt);
   }
 };

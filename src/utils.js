@@ -5,6 +5,11 @@ export const Keycodes = {
   ENTER: 13,
 };
 
+export const RenderPositions = {
+  AFTERBEGIN: `afterbegin`,
+  BEFOREEND: `beforeend`,
+};
+
 export const months = [
   `January`,
   `February`,
@@ -197,4 +202,22 @@ export const generateMovieDuration = (MovieObjectNameLocal) => {
   duration = minutes < 60 ? `${minutes}m` : `${Math.floor(minutes / 60)}h ${minutes % 60}m`;
 
   return duration;
+};
+
+export const createElement = (template) => {
+  const newElement = document.createElement(`div`);
+  newElement.innerHTML = template;
+
+  return newElement.firstChild;
+};
+
+export const render = (container, element, place) => {
+  switch (place) {
+    case RenderPositions.AFTERBEGIN:
+      container.prepend(element);
+      break;
+    case RenderPositions.BEFOREEND:
+      container.append(element);
+      break;
+  }
 };

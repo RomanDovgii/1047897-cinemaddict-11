@@ -1,4 +1,5 @@
 import {ImageTypes, generatePath, months, generateMovieObjectName, generatePosterPath, generateMovieYear, generateMovieDuration} from "../utils.js";
+import {createElement} from "../../../1047897-taskmanager-11/src/utils.js";
 
 const generateGenreTemplate = (genreLocal) => {
   return `<span class="film-details__genre">${genreLocal}</span>`;
@@ -33,7 +34,7 @@ const commentsAllRender = (commentsLocal) => {
   return commentsLocal.reduce((total, element) => total + generateCommentTemplate(element), ` `);
 };
 
-export const createInfoPopup = (movie) => {
+const createInfoPopup = (movie) => {
   const {name, country, esrbRaiting, raiting, description, comments, genre, isWatched, isWatchlist, isFavorite} = movie;
   let movieCommentWord;
   let movieObjectName = generateMovieObjectName(name);
@@ -161,3 +162,13 @@ export const createInfoPopup = (movie) => {
     </section>`
   );
 };
+
+export default class Popup {
+  constructor(movie) {
+    this._movie = movie;
+  }
+
+  getInfoPopup() {
+    return createElement(createInfoPopup(this._movie));
+  }
+}

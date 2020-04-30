@@ -1,12 +1,6 @@
 import {generateMovieObjectName, generatePosterPath, generateMovieYear, generateMovieDuration} from "../utils.js";
 
-export const createMovieCards = (movies, from, to) => {
-  let moviesForRender = movies.slice(from, to);
-  return moviesForRender.reduce((total, element) => total + createMovieCardTemplate(element), ` `);
-};
-
-
-export const createMovieCardTemplate = (movie) => {
+const createMovieCardTemplate = (movie) => {
   const {name, id, genre, raiting, description, comments, isWatchlist, isWatched, isFavorite} = movie;
   let movieObjectName = generateMovieObjectName(name);
   let poster = generatePosterPath(movieObjectName);
@@ -32,3 +26,27 @@ export const createMovieCardTemplate = (movie) => {
         </form>
       </article>`;
 };
+
+class Card {
+  constructor(movie) {
+    this._movie = movie;
+  }
+
+  getTemplate() {
+    return createMovieCardTemplate(this._movie);
+  }
+}
+
+export default class Cards {
+  constructor(movies, from, to) {
+    this._movies = movies;
+    this._from = from;
+    this._to = to;
+  }
+
+  getCards() {
+    let moviesForRender = this._movies.slice(this._from, this._to);
+    let result = moviesForRender.reduce((total, element) => total + new Card(element).getTemplate(), ` `);
+    return result;
+  }
+}
