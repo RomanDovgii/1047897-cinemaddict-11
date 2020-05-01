@@ -34,10 +34,6 @@ let moviesAll;
 let moviesRated;
 let moviesCommented;
 
-const sliceArray = (array, from, to) => {
-  return array.slice(from, to);
-};
-
 const createCards = (movies) => {
   let fragment = document.createDocumentFragment();
 
@@ -48,9 +44,9 @@ const createCards = (movies) => {
   return fragment;
 };
 
-moviesAll = createCards(sliceArray(readyMocks, 0, moviesToRender));
-moviesRated = createCards(sliceArray(arraySorterByRaiting(readyMocks), 0, additionalMoviesToRender));
-moviesCommented = createCards(sliceArray(arraySorterByComments(readyMocks), 0, additionalMoviesToRender));
+moviesAll = createCards(readyMocks.slice(0, moviesToRender));
+moviesRated = createCards(arraySorterByRaiting(readyMocks).slice(0, additionalMoviesToRender));
+moviesCommented = createCards(arraySorterByComments(readyMocks).slice(0, additionalMoviesToRender));
 
 render(header, new UserRank(`Movie Buff`).getElement(), Positions.BEFORE_END);
 render(main, new Menu(readyMocks).getElement(), Positions.BEFORE_END);
@@ -88,7 +84,7 @@ moreButton.addEventListener(`click`, () => {
   let prevCardsCount = showingCards;
   showingCards += moviesToRenderButton;
 
-  render(allContainer, createCards(sliceArray(readyMocks, prevCardsCount, showingCards)), `beforeend`);
+  render(allContainer, createCards(readyMocks.slice(prevCardsCount, showingCards)), `beforeend`);
 
   if (showingCards >= readyMocks.length) {
     moreButton.remove();
