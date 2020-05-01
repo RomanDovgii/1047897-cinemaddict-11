@@ -1,4 +1,4 @@
-import {createElement} from "../../../1047897-taskmanager-11/src/utils";
+import {createElement} from "../utils.js";
 
 const createMovieContainer = () => {
   return (`<section class="films"></section>`);
