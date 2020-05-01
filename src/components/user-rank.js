@@ -10,7 +10,23 @@ const createUserRank = (userRank) => {
 };
 
 export default class UserRank {
-  getUserRank(userRanking) {
-    return createElement(createUserRank(userRanking));
+  constructor(userRank) {
+    this._rank = userRank;
+
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createUserRank(this._rank);
+  }
+
+  getElement() {
+    this._element = createElement(this.getTemplate());
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
   }
 }

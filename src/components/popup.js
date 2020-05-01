@@ -166,9 +166,21 @@ const createInfoPopup = (movie) => {
 export default class Popup {
   constructor(movie) {
     this._movie = movie;
+
+    this._element = null;
   }
 
-  getInfoPopup() {
-    return createElement(createInfoPopup(this._movie));
+  getTemplate() {
+    return createInfoPopup(this._movie);
+  }
+
+  getElement() {
+    this._element = createElement(this.getTemplate());
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
   }
 }

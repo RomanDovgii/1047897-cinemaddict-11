@@ -37,19 +37,39 @@ const createCommentedContainer = (films) => {
 };
 
 export default class Films {
-  constructor(films) {
+  constructor(films, type) {
     this._films = films;
+    this._type = type;
+
+    this._template = null;
+    this._element = null;
   }
 
-  getMainContainer() {
-    return createElement(createMainContainer(this._films));
+  getTemplate() {
+    switch (this._type) {
+      case `rated`:
+        this._template = createRatedContainer(this._films);
+        break;
+
+      case `commented`:
+        this._template = createCommentedContainer(this._films);
+        break;
+
+      default:
+        this._template = createMainContainer(this._films);
+        break;
+    }
+
+    return this._template;
   }
 
-  getRatedContainer() {
-    return createElement(createRatedContainer(this._films));
+  getElement() {
+    this._element = createElement(this.getTemplate());
+
+    return this._element;
   }
 
-  getCommentedContainer() {
-    return createElement(createCommentedContainer(this._films));
+  removeElement() {
+    this._element = null;
   }
 }

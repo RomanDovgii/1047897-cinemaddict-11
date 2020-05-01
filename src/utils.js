@@ -10,6 +10,11 @@ export const RenderPositions = {
   BEFOREEND: `beforeend`,
 };
 
+export const SpecialContainers = {
+  RATED: `rated`,
+  COMMENTED: `commented`,
+};
+
 export const months = [
   `January`,
   `February`,

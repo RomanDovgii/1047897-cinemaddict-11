@@ -2,13 +2,13 @@ import UserRank from "./components/user-rank.js";
 import SortMenu from "./components/sort-menu.js";
 import MoviesContainer from "./components/movies-container.js";
 import Statistics from "./components/statistics.js";
-import Films from "./components/containers.js";
+import Films from "./components/films.js";
 import MoreButton from "./components/more-button.js";
 import Popup from "./components/popup.js";
 import Menu from "./components/menu.js";
-import Cards from "./components/card-template.js";
+import Cards from "./components/cards.js";
 
-import {generateRandomIntegerNumber, arraySorterByRaiting, arraySorterByComments, Keycodes, render} from "./utils.js";
+import {generateRandomIntegerNumber, arraySorterByRaiting, arraySorterByComments, Keycodes, SpecialContainers, render} from "./utils.js";
 
 import {readyMocks} from "./mocks/movie-mock.js";
 
@@ -34,25 +34,25 @@ let moviesAll;
 let moviesRated;
 let moviesCommented;
 
-moviesAll = new Cards(readyMocks, 0, moviesToRender).getCards();
-moviesRated = new Cards(arraySorterByRaiting(readyMocks), 0, additionalMoviesToRender).getCards();
-moviesCommented = new Cards(arraySorterByComments(readyMocks), 0, additionalMoviesToRender).getCards();
+moviesAll = new Cards(readyMocks, 0, moviesToRender).getTemplate();
+moviesRated = new Cards(arraySorterByRaiting(readyMocks), 0, additionalMoviesToRender).getTemplate();
+moviesCommented = new Cards(arraySorterByComments(readyMocks), 0, additionalMoviesToRender).getTemplate();
 
-render(header, new UserRank().getUserRank(`Movie Buff`), Positions.BEFORE_END);
-render(main, new Menu().getMenu(readyMocks), Positions.BEFORE_END);
-render(main, new SortMenu().getSortMenu(), Positions.BEFORE_END);
-render(main, new MoviesContainer().getMoviesContainer(), Positions.BEFORE_END);
-render(footer, new Statistics().getStatistics(generateRandomIntegerNumber()), Positions.BEFORE_END);
+render(header, new UserRank(`Movie Buff`).getElement(), Positions.BEFORE_END);
+render(main, new Menu(readyMocks).getElement(), Positions.BEFORE_END);
+render(main, new SortMenu().getElement(), Positions.BEFORE_END);
+render(main, new MoviesContainer().getElement(), Positions.BEFORE_END);
+render(footer, new Statistics(generateRandomIntegerNumber()).getElement(), Positions.BEFORE_END);
 
 films = document.querySelector(`.films`);
 
-render(films, new Films(moviesAll).getMainContainer(), Positions.BEFORE_END);
-render(films, new Films(moviesRated).getRatedContainer(), Positions.BEFORE_END);
-render(films, new Films(moviesCommented).getCommentedContainer(), Positions.BEFORE_END);
+render(films, new Films(moviesAll).getElement(), Positions.BEFORE_END);
+render(films, new Films(moviesRated, SpecialContainers.RATED).getElement(), Positions.BEFORE_END);
+render(films, new Films(moviesCommented, SpecialContainers.COMMENTED).getElement(), Positions.BEFORE_END);
 
 filmsList = films.querySelector(`.films-list`);
 
-render(filmsList, new MoreButton().getMoreButton(), Positions.BEFORE_END);
+render(filmsList, new MoreButton().getElement(), Positions.BEFORE_END);
 
 let moreButton = document.querySelector(`.films-list__show-more`);
 let showingCards = moviesToRender;
@@ -66,7 +66,7 @@ moreButton.addEventListener(`click`, () => {
   let prevCardsCount = showingCards;
   showingCards += moviesToRenderButton;
 
-  render(allContainer, new Cards(readyMocks, prevCardsCount, showingCards).getCards(), `beforeend`);
+  allContainer.insertAdjacentHTML(`beforeEnd`, new Cards(readyMocks, prevCardsCount, showingCards).getTemplate());
 
   if (showingCards >= readyMocks.length) {
     moreButton.remove();
@@ -115,7 +115,7 @@ const showCard = (evt, array) => {
     if (popup) {
       popup.remove();
     }
-    render(body, new Popup(array.find((element) => (element.id.toString() === eventTarget.id))).getInfoPopup(), Positions.BEFORE_END);
+    render(body, new Popup(array.find((element) => (element.id.toString() === eventTarget.id))).getElement(), Positions.BEFORE_END);
     initiatePopup(evt);
   }
 };

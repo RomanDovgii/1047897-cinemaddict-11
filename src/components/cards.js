@@ -30,6 +30,8 @@ const createMovieCardTemplate = (movie) => {
 class Card {
   constructor(movie) {
     this._movie = movie;
+
+    this._element = null;
   }
 
   getTemplate() {
@@ -44,9 +46,8 @@ export default class Cards {
     this._to = to;
   }
 
-  getCards() {
+  getTemplate() {
     let moviesForRender = this._movies.slice(this._from, this._to);
-    let result = moviesForRender.reduce((total, element) => total + new Card(element).getTemplate(), ` `);
-    return result;
+    return moviesForRender.reduce((total, element) => total + new Card(element).getTemplate(), ` `);
   }
 }

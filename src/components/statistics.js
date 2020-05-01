@@ -9,7 +9,23 @@ const createNumber = (number) => {
 };
 
 export default class Statistics {
-  getStatistics(randomNumber) {
-    return createElement(createNumber(randomNumber));
+  constructor(randomNumber) {
+    this._number = randomNumber;
+
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createNumber(this._number);
+  }
+
+  getElement() {
+    this._element = createElement(this.getTemplate());
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
   }
 }

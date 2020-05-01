@@ -9,40 +9,52 @@ const createSortMenu = (sortButtons) => {
   );
 };
 
-class SortButtons {
-  generateSortButton(button) {
-    const {name, isActive} = button;
-    const activeClass = `sort__button--active`;
-    return (
-      `<li><a href="#" class="sort__button ${isActive ? activeClass : ``}">Sort by ${name}</a></li>`
-    );
-  }
+const generateSortButton = (button) => {
+  const {name, isActive} = button;
+  const activeClass = `sort__button--active`;
+  return (
+    `<li><a href="#" class="sort__button ${isActive ? activeClass : ``}">Sort by ${name}</a></li>`
+  );
+};
 
-  getSortButtons() {
-    let counter = 0;
-    let sortButtons = ``;
+const getSortButtons = () => {
+  let counter = 0;
+  let sortButtons = ``;
 
-    sortTypes.forEach((item) => {
-      let sortButtonObject = {
-        name: item,
-        isActive: false,
-      };
-      counter++;
+  sortTypes.forEach((item) => {
+    let sortButtonObject = {
+      name: item,
+      isActive: false,
+    };
+    counter++;
 
-      if (counter === 1) {
-        sortButtonObject.isActive = true;
-      }
+    if (counter === 1) {
+      sortButtonObject.isActive = true;
+    }
 
-      sortButtons += this.generateSortButton(sortButtonObject);
-    });
+    sortButtons += generateSortButton(sortButtonObject);
+  });
 
-    return sortButtons;
-  }
-}
+  return createSortMenu(sortButtons);
+};
 
 
 export default class SortMenu {
-  getSortMenu() {
-    return createElement(createSortMenu(new SortButtons().getSortButtons()));
+  constructor() {
+    this._element = null;
+  }
+
+  getTemplate() {
+    return getSortButtons();
+  }
+
+  getElement() {
+    this._element = createElement(this.getTemplate());
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
   }
 }

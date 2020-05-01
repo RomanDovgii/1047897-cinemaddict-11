@@ -7,7 +7,21 @@ const createMoreButton = () => {
 };
 
 export default class MoreButton {
-  getMoreButton() {
-    return createElement(createMoreButton());
+  constructor() {
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createMoreButton();
+  }
+
+  getElement() {
+    this._element = createElement(this.getTemplate());
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
   }
 }
