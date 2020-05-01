@@ -1,44 +1,40 @@
 import {createElement} from "../utils.js";
 
-const createMainContainer = (films) => {
+const createMainContainer = () => {
   return (
     `<section class="films-list">
       <h2 class="films-list__title visually-hidden">All movies. Upcoming</h2>
 
       <div class="films-list__container films-list__container--all">
-        ${films}
       </div>
     </section>`
   );
 };
 
-const createRatedContainer = (films) => {
+const createRatedContainer = () => {
   return (
     `<section class="films-list--extra films-list--rated">
       <h2 class="films-list__title">Top rated</h2>
 
       <div class="films-list__container films-list__container--rated">
-        ${films}
       </div>
     </section>`
   );
 };
 
-const createCommentedContainer = (films) => {
+const createCommentedContainer = () => {
   return (
     `<section class="films-list--extra films-list--commented">
       <h2 class="films-list__title">Most commented</h2>
 
       <div class="films-list__container films-list__container--commented">
-       ${films}
       </div>
     </section>`
   );
 };
 
 export default class Films {
-  constructor(films, type) {
-    this._films = films;
+  constructor(type) {
     this._type = type;
 
     this._template = null;
@@ -48,15 +44,15 @@ export default class Films {
   getTemplate() {
     switch (this._type) {
       case `rated`:
-        this._template = createRatedContainer(this._films);
+        this._template = createRatedContainer();
         break;
 
       case `commented`:
-        this._template = createCommentedContainer(this._films);
+        this._template = createCommentedContainer();
         break;
 
       default:
-        this._template = createMainContainer(this._films);
+        this._template = createMainContainer();
         break;
     }
 

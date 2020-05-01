@@ -34,9 +34,9 @@ let moviesAll;
 let moviesRated;
 let moviesCommented;
 
-moviesAll = new Cards(readyMocks, 0, moviesToRender).getTemplate();
-moviesRated = new Cards(arraySorterByRaiting(readyMocks), 0, additionalMoviesToRender).getTemplate();
-moviesCommented = new Cards(arraySorterByComments(readyMocks), 0, additionalMoviesToRender).getTemplate();
+moviesAll = new Cards(readyMocks, 0, moviesToRender).getElement();
+moviesRated = new Cards(arraySorterByRaiting(readyMocks), 0, additionalMoviesToRender).getElement();
+moviesCommented = new Cards(arraySorterByComments(readyMocks), 0, additionalMoviesToRender).getElement();
 
 render(header, new UserRank(`Movie Buff`).getElement(), Positions.BEFORE_END);
 render(main, new Menu(readyMocks).getElement(), Positions.BEFORE_END);
@@ -46,9 +46,17 @@ render(footer, new Statistics(generateRandomIntegerNumber()).getElement(), Posit
 
 films = document.querySelector(`.films`);
 
-render(films, new Films(moviesAll).getElement(), Positions.BEFORE_END);
-render(films, new Films(moviesRated, SpecialContainers.RATED).getElement(), Positions.BEFORE_END);
-render(films, new Films(moviesCommented, SpecialContainers.COMMENTED).getElement(), Positions.BEFORE_END);
+render(films, new Films().getElement(), Positions.BEFORE_END);
+render(films, new Films(SpecialContainers.RATED).getElement(), Positions.BEFORE_END);
+render(films, new Films(SpecialContainers.COMMENTED).getElement(), Positions.BEFORE_END);
+
+let moviesAllContainer = document.querySelector(`.films-list__container--all`);
+let moviesRatedContainer = document.querySelector(`.films-list__container--rated`);
+let moviesCommentedContainer = document.querySelector(`.films-list__container--commented`);
+
+render(moviesAllContainer, moviesAll, Positions.BEFORE_END);
+render(moviesRatedContainer, moviesRated, Positions.BEFORE_END);
+render(moviesCommentedContainer, moviesCommented, Positions.BEFORE_END);
 
 filmsList = films.querySelector(`.films-list`);
 
