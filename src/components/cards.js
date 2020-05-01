@@ -27,18 +27,6 @@ const createMovieCardTemplate = (movie) => {
       </article>`;
 };
 
-class Card {
-  constructor(movie) {
-    this._movie = movie;
-
-    this._element = null;
-  }
-
-  getTemplate() {
-    return createMovieCardTemplate(this._movie);
-  }
-}
-
 export default class Cards {
   constructor(movies, from, to) {
     this._movies = movies;
@@ -48,6 +36,15 @@ export default class Cards {
 
   getTemplate() {
     let moviesForRender = this._movies.slice(this._from, this._to);
-    return moviesForRender.reduce((total, element) => total + new Card(element).getTemplate(), ` `);
+    return moviesForRender.reduce((total, element) => total + createMovieCardTemplate(element), ` `);
+  }
+
+  getElement() {
+    this._element = document.createRange().createContextualFragment(this.getTemplate());
+    return this._element;
+  }
+
+  removeElement() {
+    this.element = null;
   }
 }

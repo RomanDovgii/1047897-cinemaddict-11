@@ -66,7 +66,7 @@ moreButton.addEventListener(`click`, () => {
   let prevCardsCount = showingCards;
   showingCards += moviesToRenderButton;
 
-  allContainer.insertAdjacentHTML(`beforeEnd`, new Cards(readyMocks, prevCardsCount, showingCards).getTemplate());
+  render(allContainer, new Cards(readyMocks, prevCardsCount, showingCards).getElement(), `beforeend`);
 
   if (showingCards >= readyMocks.length) {
     moreButton.remove();
