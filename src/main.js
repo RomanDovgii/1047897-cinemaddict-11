@@ -6,7 +6,7 @@ import Films from "./components/films.js";
 import MoreButton from "./components/more-button.js";
 import Popup from "./components/popup.js";
 import Menu from "./components/menu.js";
-import Card from "./components/cards.js";
+import Card from "./components/card.js";
 
 import {generateRandomIntegerNumber, arraySorterByRaiting, arraySorterByComments, Keycodes, SpecialContainers, render} from "./utils.js";
 

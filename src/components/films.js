@@ -42,27 +42,27 @@ export default class Films {
   }
 
   getTemplate() {
-    if (!this._element) {
-      switch (this._type) {
-        case `rated`:
-          this._template = createRatedContainer();
-          break;
+    switch (this._type) {
+      case `rated`:
+        this._template = createRatedContainer();
+        break;
 
-        case `commented`:
-          this._template = createCommentedContainer();
-          break;
+      case `commented`:
+        this._template = createCommentedContainer();
+        break;
 
-        default:
-          this._template = createMainContainer();
-          break;
-      }
+      default:
+        this._template = createMainContainer();
+        break;
     }
 
     return this._template;
   }
 
   getElement() {
-    this._element = createElement(this.getTemplate());
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
 
     return this._element;
   }

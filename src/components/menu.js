@@ -47,13 +47,9 @@ let counter = 0;
 const createNavigationItem = (item, movies) => {
   counter++;
 
-  return counter > 1 ? {
+  return {
     name: item,
-    isActive: false,
-    number: sortMovies(item, movies),
-  } : {
-    name: item,
-    isActive: true,
+    isActive: counter === 1,
     number: sortMovies(item, movies),
   };
 };
