@@ -32,6 +32,8 @@ export default class Cards {
     this._movies = movies;
     this._from = from;
     this._to = to;
+
+    this._element = null;
   }
 
   getTemplate() {
