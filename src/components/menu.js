@@ -1,5 +1,4 @@
-import {navigationTypes} from "../utils.js";
-import {createElement} from "../../../1047897-taskmanager-11/src/utils.js";
+import {navigationTypes, createElement} from "../utils.js";
 
 const createMenu = (navigationItems) => {
   return (
@@ -43,14 +42,20 @@ const sortMovies = (type, movies) => {
   return number;
 };
 
+let counter = 0;
+
 const createNavigationItem = (item, movies) => {
-  let navigationItemObject = {
+  counter++;
+
+  return counter > 1 ? {
     name: item,
     isActive: false,
     number: sortMovies(item, movies),
+  } : {
+    name: item,
+    isActive: true,
+    number: sortMovies(item, movies),
   };
-
-  return navigationItemObject;
 };
 
 const getNavigationItems = (movies) => {
@@ -69,7 +74,9 @@ export default class Menu {
   }
 
   getElement() {
-    this._element = createElement(this.getTemplate());
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
 
     return this._element;
   }

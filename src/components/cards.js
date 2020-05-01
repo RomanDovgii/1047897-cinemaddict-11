@@ -1,6 +1,6 @@
 import {generateMovieObjectName, generatePosterPath, generateMovieYear, generateMovieDuration, createElement} from "../utils.js";
 
-class Card {
+export default class Card {
   constructor(movie) {
     this._movie = movie;
 
@@ -35,38 +35,14 @@ class Card {
   }
 
   getElement() {
-    this._element = createElement(this.getTemplate());
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
-  }
-}
-
-export default class Cards {
-  constructor(movies, from, to) {
-    this._movies = movies;
-    this._from = from;
-    this._to = to;
-
-    this._element = null;
-  }
-
-  getElement() {
-    let moviesForRender = this._movies.slice(this._from, this._to);
-    let fragment = document.createDocumentFragment();
-
-    moviesForRender.forEach((element) => {
-      fragment.append(new Card(element).getElement());
-    });
-
-    this._element = fragment;
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
 
     return this._element;
   }
 
   removeElement() {
-    this.element = null;
+    this._element = null;
   }
 }

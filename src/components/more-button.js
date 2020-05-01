@@ -16,7 +16,9 @@ export default class MoreButton {
   }
 
   getElement() {
-    this._element = createElement(this.getTemplate());
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
 
     return this._element;
   }

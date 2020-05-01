@@ -6,7 +6,7 @@ import Films from "./components/films.js";
 import MoreButton from "./components/more-button.js";
 import Popup from "./components/popup.js";
 import Menu from "./components/menu.js";
-import Cards from "./components/cards.js";
+import Card from "./components/cards.js";
 
 import {generateRandomIntegerNumber, arraySorterByRaiting, arraySorterByComments, Keycodes, SpecialContainers, render} from "./utils.js";
 
@@ -34,9 +34,20 @@ let moviesAll;
 let moviesRated;
 let moviesCommented;
 
-moviesAll = new Cards(readyMocks, 0, moviesToRender).getElement();
-moviesRated = new Cards(arraySorterByRaiting(readyMocks), 0, additionalMoviesToRender).getElement();
-moviesCommented = new Cards(arraySorterByComments(readyMocks), 0, additionalMoviesToRender).getElement();
+const createCards = (movies, from, to) => {
+  let moviesForRender = movies.slice(from, to);
+  let fragment = document.createDocumentFragment();
+
+  moviesForRender.forEach((element) => {
+    fragment.append(new Card(element).getElement());
+  });
+
+  return fragment;
+};
+
+moviesAll = createCards(readyMocks, 0, moviesToRender);
+moviesRated = createCards(arraySorterByRaiting(readyMocks), 0, additionalMoviesToRender);
+moviesCommented = createCards(arraySorterByComments(readyMocks), 0, additionalMoviesToRender);
 
 render(header, new UserRank(`Movie Buff`).getElement(), Positions.BEFORE_END);
 render(main, new Menu(readyMocks).getElement(), Positions.BEFORE_END);
@@ -74,7 +85,7 @@ moreButton.addEventListener(`click`, () => {
   let prevCardsCount = showingCards;
   showingCards += moviesToRenderButton;
 
-  render(allContainer, new Cards(readyMocks, prevCardsCount, showingCards).getElement(), `beforeend`);
+  render(allContainer, createCards(readyMocks, prevCardsCount, showingCards), `beforeend`);
 
   if (showingCards >= readyMocks.length) {
     moreButton.remove();

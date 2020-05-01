@@ -42,18 +42,20 @@ export default class Films {
   }
 
   getTemplate() {
-    switch (this._type) {
-      case `rated`:
-        this._template = createRatedContainer();
-        break;
+    if (!this._element) {
+      switch (this._type) {
+        case `rated`:
+          this._template = createRatedContainer();
+          break;
 
-      case `commented`:
-        this._template = createCommentedContainer();
-        break;
+        case `commented`:
+          this._template = createCommentedContainer();
+          break;
 
-      default:
-        this._template = createMainContainer();
-        break;
+        default:
+          this._template = createMainContainer();
+          break;
+      }
     }
 
     return this._template;
