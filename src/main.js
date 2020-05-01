@@ -33,12 +33,23 @@ let filmsList;
 let moviesAll;
 let moviesRated;
 let moviesCommented;
+let popup;
 
 const createCards = (movies) => {
   let fragment = document.createDocumentFragment();
 
   movies.forEach((element) => {
-    fragment.append(new Card(element).getElement());
+    let card = new Card(element);
+    fragment.append(card.getElement());
+    card.getElement().querySelector(`.film-card__poster`).addEventListener(`click`, (evt) => {
+      showCard(evt, element);
+    });
+    card.getElement().querySelector(`.film-card__comments`).addEventListener(`click`, (evt) => {
+      showCard(evt, element);
+    });
+    card.getElement().querySelector(`.film-card__title`).addEventListener(`click`, (evt) => {
+      showCard(evt, element);
+    });
   });
 
   return fragment;
@@ -70,31 +81,28 @@ render(moviesCommentedContainer, moviesCommented, Positions.BEFORE_END);
 
 filmsList = films.querySelector(`.films-list`);
 
-render(filmsList, new MoreButton().getElement(), Positions.BEFORE_END);
+let moreButton = new MoreButton();
 
-let moreButton = document.querySelector(`.films-list__show-more`);
+render(filmsList, moreButton.getElement(), Positions.BEFORE_END);
+
 let showingCards = moviesToRender;
 const allContainer = document.querySelector(`.films-list__container--all`);
-const topContainer = document.querySelector(`.films-list__container--rated`);
-const commentedContainer = document.querySelector(`.films-list__container--commented`);
 
-// events
 
-moreButton.addEventListener(`click`, () => {
+moreButton.getElement().addEventListener(`click`, () => {
   let prevCardsCount = showingCards;
   showingCards += moviesToRenderButton;
 
   render(allContainer, createCards(readyMocks.slice(prevCardsCount, showingCards)), `beforeend`);
 
   if (showingCards >= readyMocks.length) {
-    moreButton.remove();
+    moreButton.getElement().remove();
   }
 });
 
-const removePopup = () => {
-  const popup = document.querySelector(`.film-details`);
 
-  popup.remove();
+const removePopup = () => {
+  popup.getElement().remove();
   document.removeEventListener(`click`, documentClickHandler);
   document.removeEventListener(`keydown`, documentEscKeydownHandler);
 };
@@ -112,40 +120,25 @@ const documentEscKeydownHandler = (evt) => {
   }
 };
 
-const initiatePopup = (evt) => {
+
+const showCard = (evt, movie) => {
   evt.stopPropagation();
-  const popup = document.querySelector(`.film-details`);
-  const closePopup = popup.querySelector(`.film-details__close-btn`);
-  closePopup.addEventListener(`click`, () => {
-    removePopup();
+
+  if (popup) {
+    popup.getElement().remove();
+    popup.removeElement();
+  }
+
+  popup = new Popup(movie);
+
+  render(body, popup.getElement(), Positions.BEFORE_END);
+
+  popup.getElement().querySelector(`.film-details__close-btn`).addEventListener(`click`, () => {
+    popup.getElement().remove();
   });
+
   if (popup) {
     document.addEventListener(`click`, documentClickHandler);
     document.addEventListener(`keydown`, documentEscKeydownHandler);
   }
 };
-
-const showCard = (evt, array) => {
-  evt.stopPropagation();
-  let eventTarget = evt.target.closest(`article`);
-  if (eventTarget) {
-    const popup = document.querySelector(`.film-details`);
-    if (popup) {
-      popup.remove();
-    }
-    render(body, new Popup(array.find((element) => (element.id.toString() === eventTarget.id))).getElement(), Positions.BEFORE_END);
-    initiatePopup(evt);
-  }
-};
-
-allContainer.addEventListener(`click`, (evt) => {
-  showCard(evt, readyMocks);
-});
-
-topContainer.addEventListener(`click`, (evt) => {
-  showCard(evt, arraySorterByRaiting(readyMocks));
-});
-
-commentedContainer.addEventListener(`click`, (evt) => {
-  showCard(evt, arraySorterByComments(readyMocks));
-});
