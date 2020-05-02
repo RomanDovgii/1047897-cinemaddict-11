@@ -96,13 +96,13 @@ moreButton.getElement().addEventListener(`click`, () => {
   render(allContainer, createCards(readyMocks.slice(prevCardsCount, showingCards)), `beforeend`);
 
   if (showingCards >= readyMocks.length) {
-    moreButton.getElement().remove();
+    moreButton.removeElement();
   }
 });
 
 
 const removePopup = () => {
-  popup.getElement().remove();
+  popup.removeElement();
   document.removeEventListener(`click`, documentClickHandler);
   document.removeEventListener(`keydown`, documentEscKeydownHandler);
 };
@@ -125,7 +125,7 @@ const showCard = (evt, movie) => {
   evt.stopPropagation();
 
   if (popup) {
-    popup.getElement().remove();
+    popup.removeElement();
     popup.removeElement();
   }
 
@@ -134,7 +134,7 @@ const showCard = (evt, movie) => {
   render(body, popup.getElement(), Positions.BEFORE_END);
 
   popup.getElement().querySelector(`.film-details__close-btn`).addEventListener(`click`, () => {
-    popup.getElement().remove();
+    popup.removeElement();
   });
 
   if (popup) {
